@@ -1,0 +1,3 @@
+All game assets (images, sounds, music, fonts) are the exclusive property of chezzyalfredo and are included in this repository for demonstration purposes only.
+
+You may not reuse, reproduce, or redistribute these assets in any form, commercial or otherwise.
