@@ -1,5 +1,5 @@
 # gamename_gamejam_2026
-[Game Name Game Jam].(https://itch.io/jam/game-name-game-jam-1)
+[Game Name Game Jam](https://itch.io/jam/game-name-game-jam-1)
 
 
 ## License
