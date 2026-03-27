@@ -1,0 +1,14 @@
+Copyright © Alfred Wong 2026. All rights reserved.
+
+This project is not open source and is provided solely for personal, educational, or portfolio viewing purposes. 
+
+You are NOT permitted to:
+- Copy, modify, distribute, or create derivative works of the code or assets.
+- Use any part of the codebase, artwork, audio, or design in personal or commercial projects.
+- Reverse-engineer or reuse the game mechanics, structure, or logic.
+
+No license is granted to use this content in any software, product, or service.
+
+The copyright owner reserves the right to take legal action against unauthorized use.
+
+Contact [your email or website] for licensing or collaboration inquiries.
