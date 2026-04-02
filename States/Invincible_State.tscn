@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dd8ofiq1n67em"]
+
+[ext_resource type="Script" uid="uid://bvxq1c3mg50ur" path="res://States/invincible.gd" id="1_mp601"]
+
+[node name="Invincible_State" type="Node2D"]
+script = ExtResource("1_mp601")

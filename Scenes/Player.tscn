@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnmgxkw4wtg6r"]
+
+[ext_resource type="Script" uid="uid://imjcsnxk021q" path="res://Scenes/Player.gd" id="1_kyqiw"]
+[ext_resource type="Texture2D" uid="uid://daqgvk77tydll" path="res://Sprites/Mama_Bear_sitting.png" id="2_5ixxa"]
+[ext_resource type="Script" uid="uid://b54w1feym4n1d" path="res://States/StateMachine.gd" id="2_sm"]
+[ext_resource type="Script" uid="uid://brytdd6wjlef0" path="res://States/idle_state.gd" id="3_idle"]
+[ext_resource type="Script" uid="uid://dpbcvatq6rl6m" path="res://States/move_state.gd" id="4_move"]
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nn08x"]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_kyqiw")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5ixxa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_nn08x")
+}
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_sm")
+
+[node name="Idle_State" type="Node" parent="StateMachine"]
+script = ExtResource("3_idle")
+
+[node name="Move_State" type="Node" parent="StateMachine"]
+script = ExtResource("4_move")
