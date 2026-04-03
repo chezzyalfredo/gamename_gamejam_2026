@@ -1,12 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://bnmgxkw4wtg6r"]
+[gd_scene load_steps=10 format=3 uid="uid://bnmgxkw4wtg6r"]
 
 [ext_resource type="Script" uid="uid://imjcsnxk021q" path="res://Scenes/Player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://daqgvk77tydll" path="res://Sprites/Mama_Bear_sitting.png" id="2_5ixxa"]
 [ext_resource type="Script" uid="uid://b54w1feym4n1d" path="res://States/StateMachine.gd" id="2_sm"]
 [ext_resource type="Script" uid="uid://brytdd6wjlef0" path="res://States/idle_state.gd" id="3_idle"]
 [ext_resource type="Script" uid="uid://dpbcvatq6rl6m" path="res://States/move_state.gd" id="4_move"]
+[ext_resource type="Texture2D" uid="uid://dg5hmt8ijh3ep" path="res://Sprites/Directional Indicator.png" id="6_nn08x"]
+[ext_resource type="Texture2D" uid="uid://w243nayvnfj8" path="res://Sprites/Claw_Attack.png" id="7_52ee3"]
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nn08x"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nn08x"]
+radius = 29.614185
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_kyqiw")
@@ -27,3 +32,23 @@ script = ExtResource("3_idle")
 
 [node name="Move_State" type="Node" parent="StateMachine"]
 script = ExtResource("4_move")
+
+[node name="Directional Indicator" type="Sprite2D" parent="."]
+texture = ExtResource("6_nn08x")
+
+[node name="ClawAttack" type="Sprite2D" parent="Directional Indicator"]
+visible = false
+texture = ExtResource("7_52ee3")
+
+[node name="Attack_Hitbox" type="Area2D" parent="Directional Indicator/ClawAttack"]
+collision_mask = 2
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Directional Indicator/ClawAttack/Attack_Hitbox"]
+polygon = PackedVector2Array(-39, -22, -29, -19, -5, -32, 22, -26, 30, -46, 1, -47, -20, -44, -35, -33)
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+shape = SubResource("CircleShape2D_nn08x")

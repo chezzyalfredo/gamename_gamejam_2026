@@ -2,5 +2,11 @@
 	"20260401": [
 		"Player States - Idle, Movement, Enrage",
 		"Player - Bear Sprite"
+	],
+	"20260402": [
+		"Enemy unit created",
+		"Collision shapes created for Enemy and Player and attack hitbox",
+		"Simple attack created for Player",
+		"Some sprites for placeholders and directional display"
 	]
 }
