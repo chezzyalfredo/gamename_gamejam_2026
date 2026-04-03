@@ -1,0 +1,25 @@
+{
+	"Title": "Bearly Escaping",
+	"Description": "Breaking out of captivity, Bearly is trying to escape. Hunters surround, traps a plenty. It's time for her survival instincts to kick in.",
+	"Controls":{
+		"Movement":"Arrow Keys",
+		"Attack":"X",
+		"Enrage":"Space",
+		"Pause":"Esc",
+		"Restart":"R"
+	},
+	"Game Concept":"Survival high score game - the longer you survive the more points you get",
+	"Ideas": {
+		"Hunters": "Enemy units who shoot, or throw nets, or set up traps",
+		"Bullet": "A bullet will not kill the bear but it will slow down for a set time",
+		"Net": "Projectile object that will catch you. Arrow Key Code for release.",
+		"Trap": "Stationary object that will catch you. Arrow Key Code for relase.",
+		"Arrow Key Code": "Code gets longer each time you get caught. Incorrect Input or when hit it 'resets' the code. (Random Sequence UP,DOWN,LEFT,RIGHT)",
+		"Objects": "Stationary Objects you can't move or destroy (eg. trees/houses)",
+		"Score": "Multipliers as you kill hunters or break traps - highest multiplier when in enrage mode but it drops down to 1x after",
+		"Dodge": "Do a Bear-rel roll",
+		"Food": "0.3 second sit down to eat and reset speed to default, and add points",
+		"Enrage": "Obtain the enrage through either killing hunters/traps or alternatively getting hit or trapped by bullets/traps, each time you use it, it gets harder to get"
+	},
+	"Lofty Goal": "Set up a High Score Leaderboard"
+}
