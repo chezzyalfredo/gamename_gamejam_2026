@@ -9,6 +9,7 @@ var velocity := Vector2.ZERO
 @onready var claw_attack := $"Directional Indicator/ClawAttack"
 var attack_cd: bool = false
 var enraged: bool = false
+var caught: bool = false
 
 
 func _ready() -> void:
@@ -44,6 +45,8 @@ func _on_player_enemy_attacked(enemy: Enemy) -> void:
 	enemy.enemy_attacked(self)
 
 func _input(event: InputEvent) -> void:
+	if caught:
+		return
 	if not event is InputEventKey:
 		return
 	if not event.pressed or event.echo:

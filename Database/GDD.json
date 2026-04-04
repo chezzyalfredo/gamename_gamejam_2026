@@ -125,10 +125,10 @@
 			"Sprite": "Enrage Progress Bar, Also need to implement 'ENRAGE' filter/camera zoomed in",
 			"Scripts": {
 				"Completed": [
-					"Button to enable enrage"
+					"Enable placeholder filter and camera zoom",
+					"Button press to toggle enrage"
 					],
 				"Still Need": [
-					"Enable filter and camera zoom",
 					"Disable button when enrage is not available",
 					"progress for enrage"
 				]
