@@ -8,6 +8,7 @@ var velocity := Vector2.ZERO
 @onready var attack_hitbox: Area2D = $"Directional Indicator/ClawAttack/Attack_Hitbox"
 @onready var claw_attack := $"Directional Indicator/ClawAttack"
 var attack_cd: bool = false
+var enraged: bool = false
 
 
 func _ready() -> void:
@@ -52,9 +53,10 @@ func _input(event: InputEvent) -> void:
 		return
 	if _is_reset_key(event as InputEventKey):
 		print("reset key pressed")
+		get_tree().change_scene_to_file("res://Scenes/Play_Game.tscn")
 		return
 	if _is_enrage_key(event as InputEventKey):
-		$StateMachine/Move_State.toggle_enrage()
+		enrage_toggle()
 		return
 	if _is_attack_key(event as InputEventKey) and not attack_cd:
 		_use_attack()
@@ -119,3 +121,22 @@ func attack_cooldown_init() -> void:
 	attack_cd = true
 	await get_tree().create_timer(attack_cd_timer).timeout
 	attack_cd = false
+
+const camera_default:= Vector2(1.5, 1.5)
+const camera_enrage:= Vector2(2.5, 2.5)
+func enrage_toggle() -> void:
+	$StateMachine/Move_State.toggle_enrage(enraged)
+	if !enraged:
+		camera_enrage_on()
+		enraged = true
+	else:
+		camera_enrage_off()
+		enraged = false
+
+func camera_enrage_on() -> void:
+	$Camera2D.zoom = camera_enrage
+	$Camera2D/Enrage_Red.visible = true
+
+func camera_enrage_off() -> void:
+	$Camera2D.zoom = camera_default
+	$Camera2D/Enrage_Red.visible = false

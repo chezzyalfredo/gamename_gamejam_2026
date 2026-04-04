@@ -1,6 +1,6 @@
 {
 	"Title": "Bearly Escaping",
-	"Description": "Breaking out of captivity, Bearly is trying to escape. Hunters surround, traps a plenty. It's time for her survival instincts to kick in.",
+	"Description": "Breaking out of captivity, Bearitrice is trying to escape. Hunters surround, traps a plenty. It's time for her survival instincts to kick in.",
 	"Controls":{
 		"Movement":"Arrow Keys",
 		"Attack":"X",
@@ -9,17 +9,134 @@
 		"Restart":"R"
 	},
 	"Game Concept":"Survival high score game - the longer you survive the more points you get",
-	"Ideas": {
-		"Hunters": "Enemy units who shoot, or throw nets, or set up traps",
-		"Bullet": "A bullet will not kill the bear but it will slow down for a set time",
-		"Net": "Projectile object that will catch you. Arrow Key Code for release.",
-		"Trap": "Stationary object that will catch you. Arrow Key Code for relase.",
-		"Arrow Key Code": "Code gets longer each time you get caught. Incorrect Input or when hit it 'resets' the code. (Random Sequence UP,DOWN,LEFT,RIGHT)",
-		"Objects": "Stationary Objects you can't move or destroy (eg. trees/houses)",
-		"Score": "Multipliers as you kill hunters or break traps - highest multiplier when in enrage mode but it drops down to 1x after",
-		"Dodge": "Do a Bear-rel roll",
-		"Food": "0.3 second sit down to eat and reset speed to default, and add points",
-		"Enrage": "Obtain the enrage through either killing hunters/traps or alternatively getting hit or trapped by bullets/traps, each time you use it, it gets harder to get"
+	"Sections": {
+		"Bearitrice": {
+			"Description": "Bearitrice is the bear the player controls, should be a big cute bear",
+			"Sprite": {
+				"Still Need": [
+					"Running animation",
+					"Roll Animation",
+					"Captured Animation"
+				],
+				"In Progress": [
+					"Attack",
+					"Idle",
+					"Directional Indicator"
+				]
+			},
+			"Scripts": {
+				"Still Need":[
+					"Caught",
+					"Roll",
+					"Collision with objects/enemy/projectiles"
+				],
+				"In Progress": [
+					"Attack",
+					"Move",
+					"Idle"
+				]
+			}
+		},
+		"Map": {
+			"Description": "The general play area - should be randomly generated and everything needs to be randomly adjusted inside the bounds",
+			"Sprites": "not yet started - need tileset",
+			"Scripts": {
+				"Still Need": [
+					"Generate Map",
+					"Spawn Hunters",
+				]
+			}
+		},
+		"Hunters": {
+			"Description": "Enemy units who shoot, or throw nets, or set up traps",
+			"Sprite": "Placeholder created",
+			"Scripts": {
+				"Still Need": ["run into them -> lower speed for 0.2 seconds by 50 (balance?)",
+				"Shoot projectiles",
+				"Moving - Keeps a certain distance away from Player - so when too far moves towards slowly, when too close, moves away quickly"],
+				"Completed": "Killable, removed from scene when killed"
+			}
+		},
+		"Tranquilizer": {
+			"Description": "A projectile that will not kill the bear but it will slow down for a set time",
+			"Sprite": "Placeholder created",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Net": {
+			"Description": "Projectile object that will catch you. Arrow Key Code for release.",
+			"Sprite": "not yet created",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Pit Trap": {
+			"Description": "Stationary object that will catch you. Arrow Key Code for relase. Look just like bushes",
+			"Sprite": "bush sprite created, but need trap frame, also variety",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Bushes": {
+			"Description": "An object that can be walked through, when inside you are hidden from Hunters but lose points",
+			"Sprite": "Bush sprite created, hidden bear sprite created, need additional variety",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Arrow Key Code": {
+			"Description": "Code gets longer each time you get caught. Incorrect Input or when hit it 'resets' the code. (Random Sequence UP,DOWN,LEFT,RIGHT)",
+			"Sprite": "Created - no-input/input-good/input-bad",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Objects": {
+			"Description": "Stationary Objects you can't move or destroy (eg. trees/houses)",
+			"Sprite": "not yet created",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Score": {
+			"Description": "Multipliers as you kill hunters or break traps - highest multiplier when in enrage mode but it drops down to 1x after",
+			"Sprite": "Not needed - use CHZY8bit font",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Dodge": {
+			"Description": "Do a Bear-rel roll",
+			"Sprite": "not yet created",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Food": {
+			"Description": "0.3 second sit down to eat and reset speed to default, and add points",
+			"Sprite": "not yet created",
+			"Scripts": {
+				"Still Need": ["everything"]
+			}
+		},
+		"Enrage": {
+			"Description": "Obtain the enrage through either killing hunters/traps or alternatively getting hit or trapped by bullets/traps, each time you use it, it gets harder to get",
+			"Sprite": "Enrage Progress Bar, Also need to implement 'ENRAGE' filter/camera zoomed in",
+			"Scripts": {
+				"Completed": [
+					"Button to enable enrage"
+					],
+				"Still Need": [
+					"Enable filter and camera zoom",
+					"Disable button when enrage is not available",
+					"progress for enrage"
+				]
+			}
+		}
 	},
-	"Lofty Goal": "Set up a High Score Leaderboard"
+	"Lofty Goal": [
+		"Set up a High Score Leaderboard",
+		"Achievements - eg. get to score 100000 without getting caught"
+		]
 }

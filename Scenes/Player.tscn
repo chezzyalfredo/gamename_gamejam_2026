@@ -52,3 +52,15 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_nn08x")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+
+[node name="Enrage_Red" type="ColorRect" parent="Camera2D"]
+visible = false
+offset_left = -503.0
+offset_top = -288.0
+offset_right = 480.0
+offset_bottom = 259.0
+color = Color(0.6784314, 0, 0.13333334, 0.28627452)

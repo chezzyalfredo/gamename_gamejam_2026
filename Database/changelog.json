@@ -8,5 +8,12 @@
 		"Collision shapes created for Enemy and Player and attack hitbox",
 		"Simple attack created for Player",
 		"Some sprites for placeholders and directional display"
+	],
+	"20260403": [
+		"GDD details expanded",
+		"Game Camera now someone centers on Player",
+		"Camera zoom on enrage and red enabled",
+		"Centralized Enrage to Player actions",
+		"Sprites: Tranq, ArrowKeys, Bush"
 	]
 }
