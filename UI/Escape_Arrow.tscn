@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://b2cckjqp1t76w"]
+
+[ext_resource type="Script" uid="uid://d32bwntt6nm2k" path="res://UI/escape_arrow.gd" id="1_rg5pw"]
+[ext_resource type="Texture2D" uid="uid://dj8u0u53n73c6" path="res://Sprites/Arrows.png" id="2_xfthe"]
+
+[node name="EscapeArrow" type="Control"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 128.0
+offset_bottom = 128.0
+script = ExtResource("1_rg5pw")
+
+[node name="Arrow_Sprite" type="Sprite2D" parent="."]
+position = Vector2(64, 64)
+scale = Vector2(7, 7)
+texture = ExtResource("2_xfthe")
+hframes = 4
+vframes = 3

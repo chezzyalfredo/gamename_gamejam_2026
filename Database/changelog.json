@@ -15,5 +15,10 @@
 		"Camera zoom on enrage and red enabled",
 		"Centralized Enrage to Player actions",
 		"Sprites: Tranq, ArrowKeys, Bush"
+	],
+	"20260404": [
+		"Arrow Sprites added to a scene",
+		"Escape Sequencer - input locked on caught, unlock works, queue free of arrows",
+		"Set UI elements to CanvasLayer to prevent it from moving with camera"
 	]
 }

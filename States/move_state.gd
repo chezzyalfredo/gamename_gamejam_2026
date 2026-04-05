@@ -1,7 +1,7 @@
 extends PlayerState
 
 var MAX_SPEED := 200.0
-const RAGE_SPEED := 350.0
+const RAGE_SPEED := 200.0
 # constant rate of increase/decrease not percentage based.
 const MOVE_ACCEL := 1000.0
 

@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3lhwboujaqvl"]
+
+[ext_resource type="Script" uid="uid://dtnm1ca4fsv8k" path="res://UI/user_interface.gd" id="1_av2ri"]
+[ext_resource type="PackedScene" uid="uid://by3pwfy3jprlp" path="res://UI/Escape_Sequencer.tscn" id="1_l6r3r"]
+
+[node name="UserInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_av2ri")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
+position_smoothing_enabled = true
+
+[node name="Stationary" type="CanvasLayer" parent="."]
+
+[node name="Escape_Sequencer" parent="Stationary" instance=ExtResource("1_l6r3r")]
+visible = false
+
+[node name="Enrage_Red" type="ColorRect" parent="Stationary"]
+visible = false
+offset_left = -24.0
+offset_top = -24.0
+offset_right = 1312.0
+offset_bottom = 672.0
+color = Color(0.6784314, 0, 0.13333334, 0.28627452)
+
+[node name="Score" type="RichTextLabel" parent="Stationary"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = 24.0
+offset_right = -88.0
+offset_bottom = -504.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/normal_font_size = 32
+text = "score"

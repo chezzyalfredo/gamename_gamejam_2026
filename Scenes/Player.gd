@@ -7,6 +7,7 @@ var velocity := Vector2.ZERO
 @onready var interaction_area: Area2D = $InteractionArea
 @onready var attack_hitbox: Area2D = $"Directional Indicator/ClawAttack/Attack_Hitbox"
 @onready var claw_attack := $"Directional Indicator/ClawAttack"
+@onready var ui := $UserInterface
 var attack_cd: bool = false
 var enraged: bool = false
 var caught: bool = false
@@ -64,6 +65,9 @@ func _input(event: InputEvent) -> void:
 	if _is_attack_key(event as InputEventKey) and not attack_cd:
 		_use_attack()
 		return
+	if _is_caught_key(event as InputEventKey):
+		caught_toggle()
+		return
 	if not _is_arrow_key(event as InputEventKey):
 		return
 	if state_machine.state.name != PlayerState.IDLE:
@@ -106,6 +110,13 @@ func _is_attack_key(event: InputEventKey) -> bool:
 		_:
 			return false
 
+func _is_caught_key(event: InputEventKey) -> bool:
+	match event.physical_keycode:
+		KEY_T:
+			return true
+		_:
+			return false
+
 func _physics_process(delta: float) -> void:
 	global_position += velocity * delta
 	global_position = global_position.round()
@@ -125,21 +136,20 @@ func attack_cooldown_init() -> void:
 	await get_tree().create_timer(attack_cd_timer).timeout
 	attack_cd = false
 
-const camera_default:= Vector2(1.5, 1.5)
-const camera_enrage:= Vector2(2.5, 2.5)
+
 func enrage_toggle() -> void:
 	$StateMachine/Move_State.toggle_enrage(enraged)
 	if !enraged:
-		camera_enrage_on()
+		ui.camera_enrage_on()
 		enraged = true
 	else:
-		camera_enrage_off()
+		ui.camera_enrage_off()
 		enraged = false
 
-func camera_enrage_on() -> void:
-	$Camera2D.zoom = camera_enrage
-	$Camera2D/Enrage_Red.visible = true
-
-func camera_enrage_off() -> void:
-	$Camera2D.zoom = camera_default
-	$Camera2D/Enrage_Red.visible = false
+func caught_toggle() -> void:
+	caught = true
+	ui.toggle_sequencer_visibility()
+	await ui.escape_seq.escaped
+	print("no longer caught")
+	caught = false
+	ui.toggle_sequencer_visibility()
