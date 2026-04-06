@@ -3,6 +3,7 @@ class_name User_Interface extends Control
 @onready var escape_seq := $Stationary/Escape_Sequencer
 @onready var camera := $Camera2D
 @onready var enrage_filter := $Stationary/Enrage_Red
+@onready var pause_screen := $Stationary/Pause
 
 func toggle_sequencer_visibility() -> void:
 	print("toggle sequencer visibility, ", escape_seq.visible)
@@ -24,3 +25,6 @@ func camera_enrage_off() -> void:
 	camera.position_smoothing_enabled = true
 	camera.zoom = camera_default
 	enrage_filter.visible = false
+
+func pause_toggle() -> void:
+	pause_screen.visible = not pause_screen.visible

@@ -53,7 +53,7 @@ func _input(event: InputEvent) -> void:
 	if not event.pressed or event.echo:
 		return
 	if _is_pause_key(event as InputEventKey):
-		print("pause key pressed")
+		pause_game()
 		return
 	if _is_reset_key(event as InputEventKey):
 		print("reset key pressed")
@@ -153,3 +153,6 @@ func caught_toggle() -> void:
 	print("no longer caught")
 	caught = false
 	ui.toggle_sequencer_visibility()
+
+func pause_game() -> void:
+	ui.pause_toggle()

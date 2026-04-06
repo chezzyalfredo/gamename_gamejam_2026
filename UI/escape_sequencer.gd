@@ -8,16 +8,21 @@ var sequence_size:int = 4 #inputs
 var sequence_time:float = 3.0 #seconds
 var increment_size: int = 1
 var increment_time: float = 0.75
-var timer: Timer = Timer.new() # TODO
+@onready var timer: Timer = Timer.new() # TODO
 @onready var grid: GridContainer = $GridContainer
 const ARROW_SCENE = preload("res://UI/Escape_Arrow.tscn")
 var visual_step: int = 0
 var resetting_sequence:bool = false
+@onready var timer_bar : ProgressBar = $ProgressBar
 
 signal escaped()
 
 func _process(_delta: float) -> void:
+	if timer and not timer.is_stopped():
+		timer_bar.value = (1-(timer.time_left/sequence_time))*100
 	if escape_sequence.size() > 0 and current_step > 0 and current_step >= escape_sequence.size():
+		if timer:
+			stop_timer()
 		current_step = 0
 		escaped.emit()
 		sequence_size += increment_size
@@ -35,6 +40,28 @@ func generate_sequence() -> void:
 	reset_sequence_sprites()
 	print("sequence_size:", sequence_size, " escape_sequence:", escape_sequence, " sequence_time:", sequence_time)
 	print(Direction.UP, " ", Direction.DOWN, " ", Direction.LEFT, " ", Direction.RIGHT)
+	create_timer()
+
+func create_timer() -> void:
+	print("create timer")
+	timer = Timer.new()
+	timer.wait_time = sequence_time
+	timer.one_shot = true
+	add_child(timer)
+	timer.timeout.connect(_on_timer_timeout)
+	timer.start()
+
+func stop_timer() -> void:
+	print("stop timer")
+	timer.stop()
+	if timer.timeout.is_connected(_on_timer_timeout):
+		timer.timeout.disconnect(_on_timer_timeout)
+	timer.queue_free()
+	timer = null
+
+func _on_timer_timeout() -> void:
+	# end game - gameover screen since fully caught
+	print("timer timeout")
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:
