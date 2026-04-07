@@ -20,9 +20,18 @@ window/size/viewport_width=1280
 window/size/viewport_height=640
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+player=""
+
 [gui]
 
 theme/custom_font="uid://1t7t1bx1xu75"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="enemy"
 
 [rendering]
 

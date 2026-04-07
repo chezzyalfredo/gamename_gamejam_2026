@@ -1,6 +1,5 @@
-class_name Player extends Node2D
+class_name Player extends CharacterBody2D
 
-var velocity := Vector2.ZERO
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var state_machine: StateMachine = $StateMachine
 @onready var dir_indicator: Sprite2D = $"Directional Indicator"
@@ -52,9 +51,6 @@ func _input(event: InputEvent) -> void:
 		return
 	if not event.pressed or event.echo:
 		return
-	if _is_pause_key(event as InputEventKey):
-		pause_game()
-		return
 	if _is_reset_key(event as InputEventKey):
 		print("reset key pressed")
 		get_tree().change_scene_to_file("res://Scenes/Play_Game.tscn")
@@ -96,13 +92,6 @@ func _is_reset_key(event: InputEventKey) -> bool:
 		_:
 			return false
 
-func _is_pause_key(event: InputEventKey) -> bool:
-	match event.physical_keycode:
-		KEY_ESCAPE:
-			return true
-		_:
-			return false
-
 func _is_attack_key(event: InputEventKey) -> bool:
 	match event.physical_keycode:
 		KEY_X:
@@ -117,8 +106,8 @@ func _is_caught_key(event: InputEventKey) -> bool:
 		_:
 			return false
 
-func _physics_process(delta: float) -> void:
-	global_position += velocity * delta
+func _physics_process(_delta: float) -> void:
+	move_and_slide()
 	global_position = global_position.round()
 
 var attack_visible_time: float = 0.1
@@ -154,5 +143,6 @@ func caught_toggle() -> void:
 	caught = false
 	ui.toggle_sequencer_visibility()
 
-func pause_game() -> void:
-	ui.pause_toggle()
+func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
+	ui.adjust_score(-5.0)
+	print("Player hit by:", tranq)

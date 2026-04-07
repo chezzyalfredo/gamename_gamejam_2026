@@ -14,7 +14,9 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_nn08x"]
 radius = 29.614185
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_mask = 7
+motion_mode = 1
 script = ExtResource("1_kyqiw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -49,9 +51,13 @@ monitoring = false
 polygon = PackedVector2Array(-39, -22, -29, -19, -5, -32, 22, -26, 30, -46, 1, -47, -20, -44, -35, -33)
 
 [node name="InteractionArea" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
 shape = SubResource("CircleShape2D_nn08x")
 
 [node name="UserInterface" parent="." instance=ExtResource("8_bhhdu")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_nn08x")
+debug_color = Color(0.98094636, 0, 0.37934965, 0.41960785)

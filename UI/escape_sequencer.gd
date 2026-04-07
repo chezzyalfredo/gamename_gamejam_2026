@@ -14,6 +14,7 @@ const ARROW_SCENE = preload("res://UI/Escape_Arrow.tscn")
 var visual_step: int = 0
 var resetting_sequence:bool = false
 @onready var timer_bar : ProgressBar = $ProgressBar
+@onready var game_score: Score = $"../Score"
 
 signal escaped()
 
@@ -25,6 +26,7 @@ func _process(_delta: float) -> void:
 			stop_timer()
 		current_step = 0
 		escaped.emit()
+		game_score.update_score(25.0 * escape_sequence.size())
 		sequence_size += increment_size
 		sequence_time += increment_time
 		print("escaped!")

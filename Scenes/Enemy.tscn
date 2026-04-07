@@ -19,3 +19,5 @@ collision_layer = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -1)
 shape = SubResource("CapsuleShape2D_m1htj")
+
+[connection signal="tranq_shot" from="." to="." method="_on_tranq_shot"]

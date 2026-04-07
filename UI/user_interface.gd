@@ -4,6 +4,23 @@ class_name User_Interface extends Control
 @onready var camera := $Camera2D
 @onready var enrage_filter := $Stationary/Enrage_Red
 @onready var pause_screen := $Stationary/Pause
+@onready var score_text := $Stationary/Score
+
+
+func _ready() -> void:
+	# So Escape still runs while get_tree().paused (Player and the rest of the tree are frozen).
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if not event is InputEventKey:
+		return
+	if not event.pressed or event.echo:
+		return
+	if event.physical_keycode != KEY_ESCAPE:
+		return
+	pause_toggle()
+	get_viewport().set_input_as_handled()
 
 func toggle_sequencer_visibility() -> void:
 	print("toggle sequencer visibility, ", escape_seq.visible)
@@ -28,3 +45,9 @@ func camera_enrage_off() -> void:
 
 func pause_toggle() -> void:
 	pause_screen.visible = not pause_screen.visible
+	get_tree().paused = not get_tree().paused
+	score_text.pause_toggle()
+
+
+func adjust_score(amount: float) -> void:
+	score_text.update_score(amount)

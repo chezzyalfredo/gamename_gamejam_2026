@@ -1,33 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://q3vkytybmvbm"]
 
 [ext_resource type="PackedScene" uid="uid://bnmgxkw4wtg6r" path="res://Scenes/Player.tscn" id="1_dec15"]
-[ext_resource type="PackedScene" uid="uid://b3ynsrg7dcd4l" path="res://Scenes/Enemy.tscn" id="2_rexl2"]
-[ext_resource type="PackedScene" uid="uid://j2wha6e8e7ki" path="res://Scenes/Map.tscn" id="3_en3lw"]
+[ext_resource type="Script" uid="uid://dvjndk7tm7lr3" path="res://Scenes/play_game.gd" id="1_ih366"]
+[ext_resource type="PackedScene" uid="uid://j2wha6e8e7ki" path="res://Scenes/Play_Map.tscn" id="3_en3lw"]
 
 [node name="Play_Game" type="Node2D"]
+script = ExtResource("1_ih366")
+
+[node name="Play_Map" parent="." instance=ExtResource("3_en3lw")]
+
+[node name="Entities" type="Node2D" parent="."]
 
 [node name="Player" parent="." instance=ExtResource("1_dec15")]
-position = Vector2(634, 317)
+position = Vector2(4, 5)
 
-[node name="Enemy" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(339, 307)
-
-[node name="Enemy2" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(606, 447)
-
-[node name="Enemy3" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(1044, 174)
-
-[node name="Enemy4" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(657, 64)
-
-[node name="Enemy5" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(352, 467)
-
-[node name="Enemy6" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(230, 102)
-
-[node name="Enemy7" parent="." instance=ExtResource("2_rexl2")]
-position = Vector2(1007, 432)
-
-[node name="Map" parent="." instance=ExtResource("3_en3lw")]
+[connection signal="bush_spawned" from="." to="." method="_on_bush_spawned"]
+[connection signal="hunter_spawned" from="." to="." method="_on_hunter_spawned"]
