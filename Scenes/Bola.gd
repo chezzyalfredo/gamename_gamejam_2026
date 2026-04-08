@@ -1,16 +1,16 @@
-class_name Tranquilizer extends CharacterBody2D
+class_name Bola extends CharacterBody2D
 
 func _ready() -> void:
 	await get_tree().create_timer(30).timeout
 	score_queue_free()
 
 func _physics_process(delta: float) -> void:
-	rotation = velocity.angle() + PI / 2
+	rotation += (PI/2*delta)
 	var collision = move_and_collide(velocity*delta)
 	if collision:
 		var body = collision.get_collider()
 		if body.is_in_group("player"):
-			body.hit_by_tranquilizer(self)
+			body.hit_by_bola(self)
 			queue_free()
 		if body.is_in_group("map"):
 			score_queue_free()

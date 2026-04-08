@@ -15,6 +15,7 @@ var caught: bool = false
 func _ready() -> void:
 	interaction_area.area_entered.connect(_on_interaction_area_area_entered)
 	attack_hitbox.area_entered.connect(_on_attack_hitbox_area_entered)
+	global_position = Vector2.ZERO
 
 func _on_interaction_area_area_entered(area: Area2D) -> void:
 	var enemy := _enemy_from_area(area)
@@ -146,3 +147,7 @@ func caught_toggle() -> void:
 func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
 	ui.adjust_score(-5.0)
 	print("Player hit by:", tranq)
+
+func hit_by_bola(bola: Bola) -> void:
+	caught_toggle() # TODO: Temp - right now it's a toggle, it should not be a toggle
+	print("Player hit by:", bola)
