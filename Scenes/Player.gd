@@ -64,6 +64,9 @@ func _input(event: InputEvent) -> void:
 	if _is_caught_key(event as InputEventKey):
 		caught_toggle()
 		return
+	if _is_roll_key(event as InputEventKey):
+		bearrel_roll()
+		return
 	if not _is_arrow_key(event as InputEventKey):
 		return
 	if state_machine.state.name != PlayerState.IDLE:
@@ -102,6 +105,13 @@ func _is_attack_key(event: InputEventKey) -> bool:
 func _is_caught_key(event: InputEventKey) -> bool:
 	match event.physical_keycode:
 		KEY_T:
+			return true
+		_:
+			return false
+
+func _is_roll_key(event: InputEventKey) -> bool:
+	match event.physical_keycode:
+		KEY_Z:
 			return true
 		_:
 			return false
@@ -146,3 +156,27 @@ func caught_toggle() -> void:
 func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
 	ui.adjust_score(-5.0)
 	print("Player hit by:", tranq)
+
+var rolling : bool = false
+var rolling_cd : bool = false
+var roll_speed : float = 800
+var roll_duration : float = 0.2
+var rolling_cd_time : float = 7.0
+func bearrel_roll() -> void:
+	if rolling:
+		return
+	print(rolling_cd)
+	if rolling_cd:
+		ui.adjust_score(-rolling_cd_time)
+	rolling = true
+	var direction = Vector2.UP.rotated($"Directional Indicator".rotation)
+	velocity = direction * roll_speed
+	await get_tree().create_timer(roll_duration).timeout
+	velocity = Vector2.ZERO
+	rolling = false
+	roll_cd_timer()
+
+func roll_cd_timer() -> void:
+	rolling_cd = true
+	await get_tree().create_timer(rolling_cd_time).timeout
+	rolling_cd = false
