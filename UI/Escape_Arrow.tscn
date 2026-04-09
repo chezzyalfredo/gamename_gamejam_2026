@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://b2cckjqp1t76w"]
 
-[ext_resource type="Script" uid="uid://d32bwntt6nm2k" path="res://UI/escape_arrow.gd" id="1_rg5pw"]
+[ext_resource type="Script" path="res://UI/escape_arrow.gd" id="1_rg5pw"]
 [ext_resource type="Texture2D" uid="uid://dj8u0u53n73c6" path="res://Sprites/Arrows.png" id="2_xfthe"]
 
 [node name="EscapeArrow" type="Control"]
