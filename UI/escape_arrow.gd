@@ -18,5 +18,5 @@ func set_direction_correct() -> void:
 	await get_tree().create_timer(arrow_timeout).timeout
 	queue_free()
 
-func set_direction_incorrect() -> void:
+func set_direction_current() -> void:
 	arrow_sprite.frame_coords = Vector2i(direction, 2)

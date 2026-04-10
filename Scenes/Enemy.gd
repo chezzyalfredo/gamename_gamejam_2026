@@ -41,7 +41,8 @@ func shoot_tranq() -> void:
 	if projectile_on_cd:
 		return
 	# shoot tranq towards player
-	var direction = (player.global_position - global_position).normalized()
+	var player_pos = player.global_position.round()
+	var direction = (player_pos - global_position).normalized()
 	var tranq = preload("res://Scenes/Tranquilizer.tscn").instantiate()
 	get_tree().current_scene.add_child(tranq)
 	tranq.global_position = global_position
@@ -54,7 +55,8 @@ func shoot_bola() -> void:
 	if projectile_on_cd:
 		return
 	# shoot bola towards player
-	var direction = (player.global_position - global_position).normalized()
+	var player_pos = player.global_position.round()
+	var direction = (player_pos - global_position).normalized()
 	var bola = preload("res://Scenes/Bola.tscn").instantiate()
 	get_tree().current_scene.add_child(bola)
 	bola.global_position = global_position

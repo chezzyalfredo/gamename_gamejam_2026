@@ -120,6 +120,7 @@ func _is_roll_key(event: InputEventKey) -> bool:
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	global_position = global_position.round()
+	print("Player current position:", global_position)
 
 var attack_visible_time: float = 0.1
 func _use_attack() -> void:
@@ -136,26 +137,35 @@ func attack_cooldown_init() -> void:
 	await get_tree().create_timer(attack_cd_timer).timeout
 	attack_cd = false
 
-
 func enrage_toggle() -> void:
 	$StateMachine/Move_State.toggle_enrage(enraged)
 	if !enraged:
 		ui.camera_enrage_on()
 		enraged = true
+		animation_player.play("enrage_idle")
 	else:
 		ui.camera_enrage_off()
 		enraged = false
+		animation_player.play("idle")
 
 func caught_toggle() -> void:
 	caught = true
 	ui.toggle_sequencer_visibility()
+	$AnimationPlayer.play("caught")
 	await ui.escape_seq.escaped
 	print("no longer caught")
 	caught = false
 	ui.toggle_sequencer_visibility()
+	if !enraged:
+		$AnimationPlayer.play("idle")
+	else:
+		$AnimationPlayer.play("enrage_idle")
 
 func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
-	ui.adjust_score(-5.0)
+	if caught:
+		ui.adjust_score(-20.0)
+	else: 
+		ui.adjust_score(-5.0)
 	print("Player hit by:", tranq)
 
 var rolling : bool = false
@@ -178,10 +188,13 @@ func bearrel_roll() -> void:
 	roll_cd_timer()
 
 func roll_cd_timer() -> void:
+	print("roll timer debug")
 	rolling_cd = true
 	await get_tree().create_timer(rolling_cd_time).timeout
 	rolling_cd = false
 	
 func hit_by_bola(bola: Bola) -> void:
-	caught_toggle() # TODO: Temp - right now it's a toggle, it should not be a toggle
+	if caught:
+		return
+	caught_toggle()
 	print("Player hit by:", bola)

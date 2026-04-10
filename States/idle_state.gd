@@ -30,5 +30,7 @@ func physics_update(delta: float) -> void:
 
 func _play_idle_anim() -> void:
 	var ap := player.animation_player
-	if ap and ap.has_animation("idle"):
+	if player.enraged:
+		ap.play("enrage_idle")
+	else:
 		ap.play("idle")

@@ -15,6 +15,7 @@ var visual_step: int = 0
 var resetting_sequence:bool = false
 @onready var timer_bar : ProgressBar = $ProgressBar
 @onready var game_score: Score = $"../Score"
+var score_per_arrow :float = 10.0 
 
 signal escaped()
 
@@ -26,7 +27,7 @@ func _process(_delta: float) -> void:
 			stop_timer()
 		current_step = 0
 		escaped.emit()
-		game_score.update_score(25.0 * escape_sequence.size())
+		game_score.update_score(score_per_arrow * escape_sequence.size())
 		sequence_size += increment_size
 		sequence_time += increment_time
 		print("escaped!")
@@ -112,6 +113,9 @@ func next_in_sequence() -> void:
 	arrow.set_direction_correct()
 	current_step += 1
 	visual_step += 1
+	if visual_step < grid.get_children().size():
+		arrow = grid.get_children().get(visual_step)
+		arrow.set_direction_current()
 
 func reset_sequence_sprites() -> void:
 	current_step = 0
@@ -122,6 +126,8 @@ func reset_sequence_sprites() -> void:
 		var arrow = ARROW_SCENE.instantiate()
 		grid.add_child(arrow)
 		arrow.set_direction(dir)
+	var a : Escape_Arrow = grid.get_children().get(visual_step)
+	a.set_direction_current()
 
 func clear_grid() -> void:
 	for n in grid.get_children():
