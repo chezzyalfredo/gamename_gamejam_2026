@@ -16,12 +16,14 @@ var resetting_sequence:bool = false
 @onready var timer_bar : ProgressBar = $ProgressBar
 @onready var game_score: Score = $"../Score"
 var score_per_arrow :float = 10.0 
+@onready var catch_pct := $catch_pct
 
 signal escaped()
 
 func _process(_delta: float) -> void:
 	if timer and not timer.is_stopped():
 		timer_bar.value = (1-(timer.time_left/sequence_time))*100
+		catch_pct.text = "catch %s%%" % roundi(timer_bar.value)
 	if escape_sequence.size() > 0 and current_step > 0 and current_step >= escape_sequence.size():
 		if timer:
 			stop_timer()

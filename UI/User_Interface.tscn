@@ -1,8 +1,48 @@
-[gd_scene load_steps=4 format=3 uid="uid://b3lhwboujaqvl"]
+[gd_scene load_steps=10 format=3 uid="uid://b3lhwboujaqvl"]
 
 [ext_resource type="Script" uid="uid://dtnm1ca4fsv8k" path="res://UI/user_interface.gd" id="1_av2ri"]
 [ext_resource type="PackedScene" uid="uid://by3pwfy3jprlp" path="res://UI/Escape_Sequencer.tscn" id="1_l6r3r"]
+[ext_resource type="Script" uid="uid://6c6dfqt386ry" path="res://UI/pause.gd" id="3_gxk1h"]
+[ext_resource type="Texture2D" uid="uid://d01dfaol7sw8s" path="res://Sprites/paws.png" id="3_hl6q8"]
 [ext_resource type="Script" uid="uid://cc250m33lbcei" path="res://UI/Score.gd" id="3_vg5r1"]
+[ext_resource type="Texture2D" uid="uid://csamk4jx1xt8l" path="res://Sprites/pause_bearitrice.png" id="4_gxk1h"]
+
+[sub_resource type="Animation" id="Animation_wotyn"]
+resource_name = "bearitrice_pause"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bearitrice_head:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.8, 1.4666667, 1.5666667, 1.7, 1.8, 1.9333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 1, 2, 1, 2, 0]
+}
+
+[sub_resource type="Animation" id="Animation_gbj0g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bearitrice_head:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p6s0p"]
+_data = {
+&"RESET": SubResource("Animation_gbj0g"),
+&"bearitrice_pause": SubResource("Animation_wotyn")
+}
 
 [node name="UserInterface" type="Control"]
 layout_mode = 3
@@ -29,6 +69,7 @@ offset_top = -24.0
 offset_right = 1312.0
 offset_bottom = 672.0
 color = Color(0, 0, 0, 0.7137255)
+script = ExtResource("3_gxk1h")
 
 [node name="PauseText" type="RichTextLabel" parent="Stationary/Pause"]
 layout_mode = 0
@@ -39,6 +80,40 @@ offset_bottom = 392.0
 theme_override_font_sizes/normal_font_size = 128
 bbcode_enabled = true
 text = "PAWS"
+
+[node name="press esc" type="RichTextLabel" parent="Stationary/Pause"]
+layout_mode = 0
+offset_left = 480.0
+offset_top = 368.0
+offset_right = 960.0
+offset_bottom = 512.0
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "press 'ESC' to unpaws"
+
+[node name="paw_right" type="Sprite2D" parent="Stationary/Pause"]
+position = Vector2(928, 304)
+scale = Vector2(2, 2)
+texture = ExtResource("3_hl6q8")
+hframes = 2
+
+[node name="paw_left" type="Sprite2D" parent="Stationary/Pause"]
+position = Vector2(408, 304)
+scale = Vector2(2, 2)
+texture = ExtResource("3_hl6q8")
+hframes = 2
+frame = 1
+
+[node name="bearitrice_head" type="Sprite2D" parent="Stationary/Pause"]
+position = Vector2(664, 184)
+scale = Vector2(2, 2)
+texture = ExtResource("4_gxk1h")
+hframes = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Stationary/Pause"]
+libraries = {
+&"": SubResource("AnimationLibrary_p6s0p")
+}
 
 [node name="Score" type="RichTextLabel" parent="Stationary" groups=["game_score"]]
 anchors_preset = 15

@@ -33,4 +33,6 @@ func _play_idle_anim() -> void:
 	if player.enraged:
 		ap.play("enrage_idle")
 	else:
+		ap.play("standing_idle")
+		await ap.animation_finished
 		ap.play("idle")

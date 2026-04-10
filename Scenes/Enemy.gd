@@ -9,33 +9,38 @@ var player = null
 var speed = 75
 var start_delay:float = 5.0
 var rng := RandomNumberGenerator.new()
-
+var enemy_velocity := 50
+var mobile_hunter : bool = false
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	start_delay = rng.randf_range(start_delay*0.8, start_delay*2.0)
 	await get_tree().create_timer(start_delay).timeout
 	projectile_on_cd = false
+	if rng.randi_range(0, 10) == 0:
+		mobile_hunter = true
 
-func _process(_delta) -> void:
+func _process(delta) -> void:
 	if not projectile_on_cd:
 		var i = rng.randi_range(0, 2)
 		if i == 0:
 			shoot_bola()
 		else:
 			shoot_tranq()
+	if mobile_hunter and not player.caught:
+		global_position += move_enemy() * delta * enemy_velocity
 
 ## Called when the player’s interaction area overlaps this enemy (placeholder).
-func placeholder_player_interaction(_player: Player) -> void:
+func placeholder_player_interaction(_p: Player) -> void:
 	print(name)
+	self.queue_free()
 
 func enemy_attacked(_player: Player) -> void:
 	print(name, " was attacked and killed")
 	self.queue_free()
 
-func move_enemy() -> void:
-	#var direction = (player.global_position - global_position).normalized()
-	pass
+func move_enemy() -> Vector2:
+	return (player.global_position - global_position).normalized()
 
 func shoot_tranq() -> void:
 	if projectile_on_cd:

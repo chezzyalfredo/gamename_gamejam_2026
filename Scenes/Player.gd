@@ -41,6 +41,8 @@ func _enemy_from_area(area: Area2D) -> Enemy:
 func _on_player_enemy_overlap(enemy: Enemy) -> void:
 	print(enemy, " entered")
 	enemy.placeholder_player_interaction(self)
+	ui.adjust_score(-20)
+	caught_toggle()
 
 func _on_player_enemy_attacked(enemy: Enemy) -> void:
 	enemy.enemy_attacked(self)
@@ -120,7 +122,6 @@ func _is_roll_key(event: InputEventKey) -> bool:
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	global_position = global_position.round()
-	print("Player current position:", global_position)
 
 var attack_visible_time: float = 0.1
 func _use_attack() -> void:

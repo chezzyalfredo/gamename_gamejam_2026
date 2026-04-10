@@ -9,7 +9,7 @@ func _ready() -> void:
 	per_second()
 
 func update_score_label() -> void:
-	text = "Score: %s" % str(curr_score)
+	text = "score: %s" % str(curr_score)
 
 func update_score(score: float) -> void:
 	curr_score += score

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bnmgxkw4wtg6r"]
+[gd_scene load_steps=24 format=3 uid="uid://bnmgxkw4wtg6r"]
 
 [ext_resource type="Script" uid="uid://imjcsnxk021q" path="res://Scenes/Player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://c4xy0co4u70b3" path="res://Sprites/bearitrice.png" id="2_bhhdu"]
@@ -198,6 +198,21 @@ tracks/0/keys = {
 "values": [Vector2i(0, 3)]
 }
 
+[sub_resource type="Animation" id="Animation_m0x7a"]
+resource_name = "standing_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.03333334),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 2)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nn08x"]
 _data = {
 &"RESET": SubResource("Animation_megsn"),
@@ -208,6 +223,7 @@ _data = {
 &"enrage_left": SubResource("Animation_o3h8g"),
 &"enrage_right": SubResource("Animation_1e7my"),
 &"idle": SubResource("Animation_ulo2v"),
+&"standing_idle": SubResource("Animation_m0x7a"),
 &"walk_back": SubResource("Animation_glx4g"),
 &"walk_front": SubResource("Animation_miouo"),
 &"walk_left": SubResource("Animation_yoq75"),
