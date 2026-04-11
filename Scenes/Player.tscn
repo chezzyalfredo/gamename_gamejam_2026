@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bnmgxkw4wtg6r"]
+[gd_scene load_steps=29 format=3 uid="uid://bnmgxkw4wtg6r"]
 
 [ext_resource type="Script" uid="uid://imjcsnxk021q" path="res://Scenes/Player.gd" id="1_kyqiw"]
 [ext_resource type="Texture2D" uid="uid://c4xy0co4u70b3" path="res://Sprites/bearitrice.png" id="2_bhhdu"]
@@ -23,21 +23,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1), Vector2i(0, 1), Vector2i(1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_megsn"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame_coords")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [Vector2i(0, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_yoq75"]
@@ -207,22 +192,122 @@ tracks/0/path = NodePath("Sprite2D:frame_coords")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.03333334),
+"times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [Vector2i(0, 2)]
 }
 
+[sub_resource type="Animation" id="Animation_megsn"]
+resource_name = "left_attack"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(0, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_5v66d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_x63xi"]
+resource_name = "right_attack"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(2, 4), Vector2i(3, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_i2e8t"]
+resource_name = "enrage_attack_left"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 3), Vector2i(4, 4), Vector2i(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_qidb7"]
+resource_name = "enrage_attack_right"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2i(3, 3), Vector2i(5, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_70hv0"]
+resource_name = "bearrel_roll"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 5), Vector2i(1, 5), Vector2i(0, 5)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nn08x"]
 _data = {
-&"RESET": SubResource("Animation_megsn"),
+&"RESET": SubResource("Animation_5v66d"),
+&"bearrel_roll": SubResource("Animation_70hv0"),
 &"caught": SubResource("Animation_bhhdu"),
+&"enrage_attack_left": SubResource("Animation_i2e8t"),
+&"enrage_attack_right": SubResource("Animation_qidb7"),
 &"enrage_back": SubResource("Animation_arntx"),
 &"enrage_front": SubResource("Animation_lslt6"),
 &"enrage_idle": SubResource("Animation_1iu4k"),
 &"enrage_left": SubResource("Animation_o3h8g"),
 &"enrage_right": SubResource("Animation_1e7my"),
 &"idle": SubResource("Animation_ulo2v"),
+&"left_attack": SubResource("Animation_megsn"),
+&"right_attack": SubResource("Animation_x63xi"),
 &"standing_idle": SubResource("Animation_m0x7a"),
 &"walk_back": SubResource("Animation_glx4g"),
 &"walk_front": SubResource("Animation_miouo"),
@@ -240,9 +325,9 @@ script = ExtResource("1_kyqiw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_bhhdu")
-hframes = 7
-vframes = 4
-frame = 7
+hframes = 8
+vframes = 6
+frame = 8
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -270,7 +355,7 @@ collision_mask = 2
 monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Directional Indicator/ClawAttack/Attack_Hitbox"]
-polygon = PackedVector2Array(-39, -22, -29, -19, -5, -32, 22, -26, 30, -46, 1, -47, -20, -44, -35, -33)
+polygon = PackedVector2Array(-53, -19, -53, -23, -50, -30, -41, -41, -38, -44, -33, -47, -27, -50, -25, -51, -18, -53, -7, -55, 0, -55, 9, -53, 46, -31, 27, -13, 20, -23, 6, -30, -6, -30, -18, -25, -24, -17, -41, -14)
 
 [node name="InteractionArea" type="Area2D" parent="."]
 collision_mask = 3

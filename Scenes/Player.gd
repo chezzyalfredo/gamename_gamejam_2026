@@ -10,6 +10,7 @@ class_name Player extends CharacterBody2D
 var attack_cd: bool = false
 var enraged: bool = false
 var caught: bool = false
+var animation_locked: bool = false
 
 
 func _ready() -> void:
@@ -123,14 +124,23 @@ func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	global_position = global_position.round()
 
-var attack_visible_time: float = 0.1
+var attack_visible_time: float = 0.2
 func _use_attack() -> void:
+	if attack_cd:
+		return
+	animation_locked = true
+	if enraged:
+		$AnimationPlayer.play("enrage_attack_left")
+	else:
+		$AnimationPlayer.play("left_attack")
+	await get_tree().create_timer(0.1).timeout
 	claw_attack.visible = true
 	$"Directional Indicator/ClawAttack/Attack_Hitbox".monitoring = true
 	await get_tree().create_timer(attack_visible_time).timeout
 	claw_attack.visible = false
 	$"Directional Indicator/ClawAttack/Attack_Hitbox".monitoring = false
 	attack_cooldown_init()
+	animation_locked = false
 
 var attack_cd_timer: float = 0.5
 func attack_cooldown_init() -> void:
@@ -150,6 +160,8 @@ func enrage_toggle() -> void:
 		animation_player.play("idle")
 
 func caught_toggle() -> void:
+	if caught:
+		return
 	caught = true
 	ui.toggle_sequencer_visibility()
 	$AnimationPlayer.play("caught")
@@ -172,21 +184,24 @@ func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
 var rolling : bool = false
 var rolling_cd : bool = false
 var roll_speed : float = 800
-var roll_duration : float = 0.2
+var roll_duration : float = 0.3
 var rolling_cd_time : float = 7.0
 func bearrel_roll() -> void:
 	if rolling:
 		return
+	animation_locked = true
 	print(rolling_cd)
 	if rolling_cd:
 		ui.adjust_score(-rolling_cd_time)
 	rolling = true
 	var direction = Vector2.UP.rotated($"Directional Indicator".rotation)
+	$AnimationPlayer.play("bearrel_roll")
 	velocity = direction * roll_speed
 	await get_tree().create_timer(roll_duration).timeout
 	velocity = Vector2.ZERO
 	rolling = false
 	roll_cd_timer()
+	animation_locked = false
 
 func roll_cd_timer() -> void:
 	print("roll timer debug")
@@ -196,6 +211,7 @@ func roll_cd_timer() -> void:
 	
 func hit_by_bola(bola: Bola) -> void:
 	if caught:
-		return
-	caught_toggle()
+		ui.adjust_score(-50.0)
+	else:
+		caught_toggle()
 	print("Player hit by:", bola)

@@ -46,6 +46,8 @@ func exit() -> void:
 	print(player.global_position)
 
 func update_animation(input_dir: Vector2) -> void:
+	if player.animation_locked:
+		return
 	var anim := "walk_left"
 	if enraged:
 		anim = "enrage_left"
