@@ -12,3 +12,14 @@ func min_max_x() -> Array:
 func min_max_y() -> Array:
 	var y = plus_min.y * tile_size.y
 	return [-1*y, y]
+
+func get_play_bounds_global() -> Rect2:
+	var x_mm := min_max_x()
+	var y_mm := min_max_y()
+	var local_rect := Rect2(
+		float(x_mm[0]),
+		float(y_mm[0]),
+		float(x_mm[1] - x_mm[0]),
+		float(y_mm[1] - y_mm[0])
+	)
+	return Rect2(global_position + local_rect.position, local_rect.size)

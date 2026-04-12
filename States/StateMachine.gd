@@ -20,7 +20,7 @@ func _ready() -> void:
 	state.enter("")
 
 
-## Switch to another state by node name (e.g. PlayerState.MOVE). No-op if already there.
+# Switch to another state by node name (e.g. PlayerState.MOVE). No-op if already there.
 func transition_to(target_state_path: String, data: Dictionary = {}) -> void:
 	if not has_node(target_state_path):
 		printerr(owner.name, ": Trying to transition to state ", target_state_path, " but it does not exist.")

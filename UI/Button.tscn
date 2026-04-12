@@ -1,0 +1,34 @@
+[gd_scene load_steps=4 format=3 uid="uid://gghtwswhgsps"]
+
+[ext_resource type="Script" uid="uid://bmhd46xovo2g0" path="res://UI/button.gd" id="1_r2wpy"]
+[ext_resource type="Theme" uid="uid://c4xs02vv8oixg" path="res://UI/Midnight_Theme.tres" id="2_0wfh3"]
+[ext_resource type="FontFile" uid="uid://1t7t1bx1xu75" path="res://UI/Fonts/CHZY 8BIT.ttf" id="5_lc7le"]
+
+[node name="Button" type="Control"]
+layout_mode = 3
+anchor_right = 0.15
+anchor_bottom = 0.1
+script = ExtResource("1_r2wpy")
+metadata/_edit_use_anchors_ = true
+
+[node name="Button_Images" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource("2_0wfh3")
+
+[node name="Button_Text" type="Label" parent="Button_Images"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("5_lc7le")
+theme_override_font_sizes/font_size = 8
+text = "{button_txt}"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="toggled" from="Button_Images" to="." method="_on_button_images_toggled"]

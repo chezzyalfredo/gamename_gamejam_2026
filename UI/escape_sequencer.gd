@@ -65,8 +65,13 @@ func stop_timer() -> void:
 	timer = null
 
 func _on_timer_timeout() -> void:
-	# end game - gameover screen since fully caught
-	print("timer timeout")
+	stop_timer()
+	if game_score:
+		game_score.game_over = true
+		var final_score := game_score.get_curr_score()
+		get_tree().root.set_meta(&"pending_game_over_score", final_score)
+	get_tree().paused = false
+	get_tree().change_scene_to_file("res://UI/Game_Over.tscn")
 
 func _input(event: InputEvent) -> void:
 	if not event is InputEventKey:

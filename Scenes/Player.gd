@@ -7,6 +7,7 @@ class_name Player extends CharacterBody2D
 @onready var attack_hitbox: Area2D = $"Directional Indicator/ClawAttack/Attack_Hitbox"
 @onready var claw_attack := $"Directional Indicator/ClawAttack"
 @onready var ui := $UserInterface
+@onready var play_map: Play_Map = $"../Play_Map"
 var attack_cd: bool = false
 var enraged: bool = false
 var caught: bool = false
@@ -123,6 +124,20 @@ func _is_roll_key(event: InputEventKey) -> bool:
 func _physics_process(_delta: float) -> void:
 	move_and_slide()
 	global_position = global_position.round()
+	if rolling and play_map:
+		_clamp_to_play_bounds()
+
+
+func _clamp_to_play_bounds() -> void:
+	var r := play_map.get_play_bounds_global()
+	var min_x := r.position.x
+	var max_x := r.position.x + r.size.x
+	var min_y := r.position.y
+	var max_y := r.position.y + r.size.y
+	global_position = Vector2(
+		clampf(global_position.x, min_x, max_x),
+		clampf(global_position.y, min_y, max_y)
+	).round()
 
 var attack_visible_time: float = 0.2
 func _use_attack() -> void:
@@ -145,8 +160,10 @@ func _use_attack() -> void:
 var attack_cd_timer: float = 0.5
 func attack_cooldown_init() -> void:
 	attack_cd = true
+	ui.toggle_attack_disable(attack_cd)
 	await get_tree().create_timer(attack_cd_timer).timeout
 	attack_cd = false
+	ui.toggle_attack_disable(attack_cd)
 
 func enrage_toggle() -> void:
 	$StateMachine/Move_State.toggle_enrage(enraged)
@@ -185,7 +202,7 @@ var rolling : bool = false
 var rolling_cd : bool = false
 var roll_speed : float = 800
 var roll_duration : float = 0.3
-var rolling_cd_time : float = 7.0
+var rolling_cd_time : float = 5.0
 func bearrel_roll() -> void:
 	if rolling:
 		return
@@ -194,20 +211,26 @@ func bearrel_roll() -> void:
 	if rolling_cd:
 		ui.adjust_score(-rolling_cd_time)
 	rolling = true
+	$InteractionArea.monitoring = false
+	$CollisionShape2D.disabled = true
 	var direction = Vector2.UP.rotated($"Directional Indicator".rotation)
 	$AnimationPlayer.play("bearrel_roll")
 	velocity = direction * roll_speed
 	await get_tree().create_timer(roll_duration).timeout
 	velocity = Vector2.ZERO
 	rolling = false
+	$InteractionArea.monitoring = true
+	$CollisionShape2D.disabled = false
 	roll_cd_timer()
 	animation_locked = false
 
 func roll_cd_timer() -> void:
 	print("roll timer debug")
 	rolling_cd = true
+	ui.toggle_roll_penalty(rolling_cd)
 	await get_tree().create_timer(rolling_cd_time).timeout
 	rolling_cd = false
+	ui.toggle_roll_penalty(rolling_cd)
 	
 func hit_by_bola(bola: Bola) -> void:
 	if caught:

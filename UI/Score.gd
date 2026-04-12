@@ -8,6 +8,9 @@ const score_per_sec := 1.0
 func _ready() -> void:
 	per_second()
 
+func get_curr_score() -> float:
+	return curr_score
+
 func update_score_label() -> void:
 	text = "score: %s" % str(curr_score)
 

@@ -1,0 +1,101 @@
+[gd_scene load_steps=7 format=3 uid="uid://dnlxewd0qipya"]
+
+[ext_resource type="Texture2D" uid="uid://wl5148o66l8v" path="res://Sprites/Signature.png" id="1_ogfqf"]
+[ext_resource type="Script" uid="uid://dojswgmbywin2" path="res://Scenes/preload_game.gd" id="1_qkonk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkonk"]
+
+[sub_resource type="Animation" id="Animation_a6suw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [SubResource("ShaderMaterial_qkonk")]
+}
+
+[sub_resource type="Animation" id="Animation_mgkor"]
+resource_name = "show_signature"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.47, 2.01, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:material")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.49, 1.98, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [null, SubResource("ShaderMaterial_qkonk"), null, null]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k1c2q"]
+_data = {
+&"RESET": SubResource("Animation_a6suw"),
+&"show_signature": SubResource("Animation_mgkor")
+}
+
+[node name="Preload_Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_qkonk")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_qkonk")
+layout_mode = 0
+offset_top = -40.0
+offset_right = 640.0
+offset_bottom = 320.0
+scale = Vector2(2, 2)
+texture = ExtResource("1_ogfqf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k1c2q")
+}
+autoplay = "show_signature"

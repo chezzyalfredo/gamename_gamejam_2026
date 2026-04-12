@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3lhwboujaqvl"]
+[gd_scene load_steps=12 format=3 uid="uid://b3lhwboujaqvl"]
 
 [ext_resource type="Script" uid="uid://dtnm1ca4fsv8k" path="res://UI/user_interface.gd" id="1_av2ri"]
 [ext_resource type="PackedScene" uid="uid://by3pwfy3jprlp" path="res://UI/Escape_Sequencer.tscn" id="1_l6r3r"]
@@ -6,6 +6,23 @@
 [ext_resource type="Texture2D" uid="uid://d01dfaol7sw8s" path="res://Sprites/paws.png" id="3_hl6q8"]
 [ext_resource type="Script" uid="uid://cc250m33lbcei" path="res://UI/Score.gd" id="3_vg5r1"]
 [ext_resource type="Texture2D" uid="uid://csamk4jx1xt8l" path="res://Sprites/pause_bearitrice.png" id="4_gxk1h"]
+[ext_resource type="Script" uid="uid://dato0ulakhge3" path="res://UI/action_icons.gd" id="7_gbj0g"]
+[ext_resource type="Texture2D" uid="uid://ce7aff32qafg3" path="res://Sprites/action_icons.png" id="7_wotyn"]
+
+[sub_resource type="Animation" id="Animation_gbj0g"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("bearitrice_head:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_wotyn"]
 resource_name = "bearitrice_pause"
@@ -21,21 +38,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 1, 2, 1, 2, 0]
-}
-
-[sub_resource type="Animation" id="Animation_gbj0g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("bearitrice_head:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_p6s0p"]
@@ -129,6 +131,50 @@ theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
 text = "score"
 script = ExtResource("3_vg5r1")
+
+[node name="Action_Icons" type="Control" parent="Stationary"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1280.0
+offset_bottom = 640.0
+script = ExtResource("7_gbj0g")
+
+[node name="Attack_Notifier" type="Sprite2D" parent="Stationary/Action_Icons"]
+position = Vector2(1184, 544)
+scale = Vector2(2, 2)
+texture = ExtResource("7_wotyn")
+hframes = 2
+frame = 1
+
+[node name="Disable" type="ColorRect" parent="Stationary/Action_Icons/Attack_Notifier"]
+visible = false
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(1, 0.13333334, 0.13333334, 0.41960785)
+
+[node name="Roll_Notifier" type="Sprite2D" parent="Stationary/Action_Icons"]
+position = Vector2(1048, 544)
+scale = Vector2(2, 2)
+texture = ExtResource("7_wotyn")
+hframes = 2
+
+[node name="Penalty" type="ColorRect" parent="Stationary/Action_Icons/Roll_Notifier"]
+visible = false
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+color = Color(1, 0.4392157, 0, 0.43137255)
+
+[node name="Action_Label" type="RichTextLabel" parent="Stationary/Action_Icons"]
+layout_mode = 0
+offset_left = 1032.0
+offset_top = 616.0
+offset_right = 1240.0
+offset_bottom = 656.0
+text = "[Z]                            [X]"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(1.5, 1.5)

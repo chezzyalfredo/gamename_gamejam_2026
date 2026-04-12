@@ -1,0 +1,36 @@
+[gd_scene load_steps=3 format=3 uid="uid://csf8hpcgjbp3c"]
+
+[ext_resource type="PackedScene" uid="uid://gghtwswhgsps" path="res://UI/Button.tscn" id="1_c4tk2"]
+[ext_resource type="Script" uid="uid://fud507re007f" path="res://Scenes/main_menu.gd" id="1_rmbjf"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rmbjf")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Play_Button" parent="." instance=ExtResource("1_c4tk2")]
+layout_mode = 1
+anchor_left = 0.35025
+anchor_top = 0.70000005
+anchor_right = 0.65
+anchor_bottom = 0.79950005
+offset_left = -0.32000732
+offset_top = -3.0517578e-05
+offset_bottom = 0.3199768
+button_text = "Play Game"
+font_size_override = 32
+
+[connection signal="pressed" from="Play_Button" to="." method="_on_play_button_pressed"]

@@ -30,7 +30,7 @@ func _process(delta) -> void:
 	if mobile_hunter and not player.caught:
 		global_position += move_enemy() * delta * enemy_velocity
 
-## Called when the player’s interaction area overlaps this enemy (placeholder).
+# Called when the player’s interaction area overlaps this enemy (placeholder).
 func placeholder_player_interaction(_p: Player) -> void:
 	print(name)
 	self.queue_free()

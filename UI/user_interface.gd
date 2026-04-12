@@ -5,12 +5,12 @@ class_name User_Interface extends Control
 @onready var enrage_filter := $Stationary/Enrage_Red
 @onready var pause_screen := $Stationary/Pause
 @onready var score_text := $Stationary/Score
+@onready var action_item := $Stationary/Action_Icons
 
 
 func _ready() -> void:
 	# So Escape still runs while get_tree().paused (Player and the rest of the tree are frozen).
 	process_mode = Node.PROCESS_MODE_ALWAYS
-
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not event is InputEventKey:
@@ -48,6 +48,17 @@ func pause_toggle() -> void:
 	get_tree().paused = not get_tree().paused
 	score_text.pause_toggle()
 
-
 func adjust_score(amount: float) -> void:
 	score_text.update_score(amount)
+
+func toggle_attack_disable(disable: bool) -> void:
+	if disable:
+		action_item.show_attack_disabled()
+	else:
+		action_item.hide_attack_disable()
+
+func toggle_roll_penalty(penalty: bool) -> void:
+	if penalty:
+		action_item.show_roll_penalty()
+	else:
+		action_item.hide_roll_penalty()
