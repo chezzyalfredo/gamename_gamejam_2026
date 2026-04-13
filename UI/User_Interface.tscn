@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b3lhwboujaqvl"]
+[gd_scene load_steps=14 format=3 uid="uid://b3lhwboujaqvl"]
 
 [ext_resource type="Script" uid="uid://dtnm1ca4fsv8k" path="res://UI/user_interface.gd" id="1_av2ri"]
 [ext_resource type="PackedScene" uid="uid://by3pwfy3jprlp" path="res://UI/Escape_Sequencer.tscn" id="1_l6r3r"]
@@ -8,6 +8,8 @@
 [ext_resource type="Texture2D" uid="uid://csamk4jx1xt8l" path="res://Sprites/pause_bearitrice.png" id="4_gxk1h"]
 [ext_resource type="Script" uid="uid://dato0ulakhge3" path="res://UI/action_icons.gd" id="7_gbj0g"]
 [ext_resource type="Texture2D" uid="uid://ce7aff32qafg3" path="res://Sprites/action_icons.png" id="7_wotyn"]
+[ext_resource type="Texture2D" uid="uid://djcn6x8ntr08n" path="res://Sprites/Icon.png" id="9_y5q4t"]
+[ext_resource type="Texture2D" uid="uid://cckf8vphoebek" path="res://Sprites/Projectile.png" id="10_ulq87"]
 
 [sub_resource type="Animation" id="Animation_gbj0g"]
 length = 0.001
@@ -167,6 +169,46 @@ offset_top = -32.0
 offset_right = 32.0
 offset_bottom = 32.0
 color = Color(1, 0.4392157, 0, 0.43137255)
+
+[node name="Enrage_Notifier" type="Sprite2D" parent="Stationary/Action_Icons"]
+position = Vector2(1016, 440)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_y5q4t")
+
+[node name="Tranq_1" type="Sprite2D" parent="Stationary/Action_Icons/Enrage_Notifier"]
+position = Vector2(112, -32)
+scale = Vector2(4, 4)
+texture = ExtResource("10_ulq87")
+
+[node name="Tranq_2" type="Sprite2D" parent="Stationary/Action_Icons/Enrage_Notifier"]
+position = Vector2(192, -32)
+scale = Vector2(4, 4)
+texture = ExtResource("10_ulq87")
+
+[node name="Tranq_3" type="Sprite2D" parent="Stationary/Action_Icons/Enrage_Notifier"]
+position = Vector2(272, -32)
+scale = Vector2(4, 4)
+texture = ExtResource("10_ulq87")
+
+[node name="Tranq_4" type="Sprite2D" parent="Stationary/Action_Icons/Enrage_Notifier"]
+position = Vector2(352, -32)
+scale = Vector2(4, 4)
+texture = ExtResource("10_ulq87")
+
+[node name="Tranq_5" type="Sprite2D" parent="Stationary/Action_Icons/Enrage_Notifier"]
+position = Vector2(432, -32)
+scale = Vector2(4, 4)
+texture = ExtResource("10_ulq87")
+
+[node name="Action_Label2" type="RichTextLabel" parent="Stationary/Action_Icons/Enrage_Notifier"]
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 464.0
+offset_bottom = 56.0
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[Space] ENRAGE!"
+horizontal_alignment = 1
 
 [node name="Action_Label" type="RichTextLabel" parent="Stationary/Action_Icons"]
 layout_mode = 0

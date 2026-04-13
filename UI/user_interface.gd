@@ -6,10 +6,12 @@ class_name User_Interface extends Control
 @onready var pause_screen := $Stationary/Pause
 @onready var score_text := $Stationary/Score
 @onready var action_item := $Stationary/Action_Icons
+var player : Player
 
 
 func _ready() -> void:
 	# So Escape still runs while get_tree().paused (Player and the rest of the tree are frozen).
+	player = get_tree().get_first_node_in_group("player")
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -49,7 +51,10 @@ func pause_toggle() -> void:
 	score_text.pause_toggle()
 
 func adjust_score(amount: float) -> void:
-	score_text.update_score(amount)
+	if player.enraged:
+		score_text.update_score(amount * 3)
+	else:
+		score_text.update_score(amount)
 
 func toggle_attack_disable(disable: bool) -> void:
 	if disable:
@@ -62,3 +67,39 @@ func toggle_roll_penalty(penalty: bool) -> void:
 		action_item.show_roll_penalty()
 	else:
 		action_item.hide_roll_penalty()
+
+func enraged_text() -> void:
+	$Stationary/Action_Icons/Enrage_Notifier/Action_Label2.text = "[pulse freq=2 color=red ease=-2.0]ENRAWRRRGED![/pulse]"
+
+func update_enrage(enrage_counter: int) -> void:
+	match enrage_counter:
+		0: 
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_5.self_modulate = Color(1.0, 1.0, 1.0)
+			$Stationary/Action_Icons/Enrage_Notifier/Action_Label2.self_modulate = Color(1.0, 1.0, 1.0)
+			$Stationary/Action_Icons/Enrage_Notifier/Action_Label2.text = "[pulse freq=2 color=red ease=-2.0][Space] to ENRAGE![/pulse]"
+			$Stationary/Action_Icons/Enrage_Notifier.self_modulate = Color(1.0, 1.0, 1.0)
+			return
+		1: 
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_4.self_modulate = Color(1.0, 1.0, 1.0)
+			return
+		2: 
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_3.self_modulate = Color(1.0, 1.0, 1.0)
+			return
+		3: 
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_2.self_modulate = Color(1.0, 1.0, 1.0)
+			return
+		4: 
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_1.self_modulate = Color(1.0, 1.0, 1.0)
+			return
+		5: 
+			$Stationary/Action_Icons/Enrage_Notifier/Action_Label2.text = "[Space] to ENRAGE!"
+			$Stationary/Action_Icons/Enrage_Notifier.self_modulate = Color(0.475, 0.475, 0.475)
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_1.self_modulate = Color(0.475, 0.475, 0.475)
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_2.self_modulate = Color(0.475, 0.475, 0.475)
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_3.self_modulate = Color(0.475, 0.475, 0.475)
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_4.self_modulate = Color(0.475, 0.475, 0.475)
+			$Stationary/Action_Icons/Enrage_Notifier/Tranq_5.self_modulate = Color(0.475, 0.475, 0.475)
+			$Stationary/Action_Icons/Enrage_Notifier/Action_Label2.self_modulate = Color(0.475, 0.475, 0.475)
+			return
+		_:
+			return

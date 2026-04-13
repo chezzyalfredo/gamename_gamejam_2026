@@ -12,12 +12,14 @@ var attack_cd: bool = false
 var enraged: bool = false
 var caught: bool = false
 var animation_locked: bool = false
-
+var enrage_limit_max :int = 5
+var enrage_limit :int = 5
 
 func _ready() -> void:
 	interaction_area.area_entered.connect(_on_interaction_area_area_entered)
 	attack_hitbox.area_entered.connect(_on_attack_hitbox_area_entered)
 	global_position = Vector2.ZERO
+	ui.update_enrage(enrage_limit)
 
 func _on_interaction_area_area_entered(area: Area2D) -> void:
 	var enemy := _enemy_from_area(area)
@@ -25,11 +27,13 @@ func _on_interaction_area_area_entered(area: Area2D) -> void:
 	if enemy:
 		_on_player_enemy_overlap(enemy)
 
+var enemy_points := 25.0
 func _on_attack_hitbox_area_entered(area: Area2D) -> void:
 	var enemy := _enemy_from_area(area)
 	print(enemy, "attack area entered")
 	if enemy:
 		_on_player_enemy_attacked(enemy)
+		ui.adjust_score(enemy_points)
 
 func _enemy_from_area(area: Area2D) -> Enemy:
 	var n: Node = area
@@ -40,10 +44,11 @@ func _enemy_from_area(area: Area2D) -> Enemy:
 		n = n.get_parent()
 	return null
 
+var enemy_touched := -20.0
 func _on_player_enemy_overlap(enemy: Enemy) -> void:
 	print(enemy, " entered")
 	enemy.placeholder_player_interaction(self)
-	ui.adjust_score(-20)
+	ui.adjust_score(enemy_touched)
 	caught_toggle()
 
 func _on_player_enemy_attacked(enemy: Enemy) -> void:
@@ -165,16 +170,26 @@ func attack_cooldown_init() -> void:
 	attack_cd = false
 	ui.toggle_attack_disable(attack_cd)
 
+var enrage_timer := 15.0
 func enrage_toggle() -> void:
+	if enraged or enrage_limit != 0:
+		return
 	$StateMachine/Move_State.toggle_enrage(enraged)
 	if !enraged:
-		ui.camera_enrage_on()
 		enraged = true
+		ui.camera_enrage_on()
+		ui.enraged_text()
 		animation_player.play("enrage_idle")
-	else:
-		ui.camera_enrage_off()
-		enraged = false
-		animation_player.play("idle")
+		await get_tree().create_timer(enrage_timer).timeout
+		disable_enrage()
+
+func disable_enrage() -> void:
+	$StateMachine/Move_State.toggle_enrage(enraged)
+	ui.camera_enrage_off()
+	enraged = false
+	animation_player.play("idle")
+	enrage_limit = enrage_limit_max
+	ui.update_enrage(enrage_limit)
 
 func caught_toggle() -> void:
 	if caught:
@@ -191,11 +206,15 @@ func caught_toggle() -> void:
 	else:
 		$AnimationPlayer.play("enrage_idle")
 
+var tranq_penalty := -5.0
 func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
 	if caught:
-		ui.adjust_score(-20.0)
-	else: 
-		ui.adjust_score(-5.0)
+		ui.adjust_score(tranq_penalty * 4)
+	else:
+		ui.adjust_score(tranq_penalty)
+	if !enraged:
+		enrage_limit = max(0, enrage_limit -1)
+		ui.update_enrage(enrage_limit)
 	print("Player hit by:", tranq)
 
 var rolling : bool = false
@@ -203,13 +222,14 @@ var rolling_cd : bool = false
 var roll_speed : float = 800
 var roll_duration : float = 0.3
 var rolling_cd_time : float = 5.0
+var rolling_cd_penalty: float = -10.0
 func bearrel_roll() -> void:
 	if rolling:
 		return
 	animation_locked = true
 	print(rolling_cd)
 	if rolling_cd:
-		ui.adjust_score(-rolling_cd_time)
+		ui.adjust_score(rolling_cd_penalty)
 	rolling = true
 	$InteractionArea.monitoring = false
 	$CollisionShape2D.disabled = true
@@ -232,9 +252,10 @@ func roll_cd_timer() -> void:
 	rolling_cd = false
 	ui.toggle_roll_penalty(rolling_cd)
 	
+var bola_hit_penalty := -50.0
 func hit_by_bola(bola: Bola) -> void:
 	if caught:
-		ui.adjust_score(-50.0)
+		ui.adjust_score(bola_hit_penalty)
 	else:
 		caught_toggle()
 	print("Player hit by:", bola)

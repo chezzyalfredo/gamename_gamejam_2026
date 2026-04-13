@@ -3,9 +3,11 @@ class_name Score extends RichTextLabel
 var curr_score :float = 0.0
 var game_over :bool = false
 var game_paused :bool = false
+var ui : User_Interface
 const score_per_sec := 1.0
 
 func _ready() -> void:
+	ui = get_parent().get_parent()
 	per_second()
 
 func get_curr_score() -> float:
@@ -23,7 +25,7 @@ func per_second() -> void:
 		await get_tree().create_timer(1.0).timeout
 		
 		if not game_paused:
-			update_score(1)
+			ui.adjust_score(1)
 
 func pause_toggle() -> void:
 	game_paused = not game_paused

@@ -13,7 +13,7 @@ config_version=5
 config/name="gamename_gamejam_2026"
 run/main_scene="uid://dnlxewd0qipya"
 config/features=PackedStringArray("4.5", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://djcn6x8ntr08n"
 
 [display]
 

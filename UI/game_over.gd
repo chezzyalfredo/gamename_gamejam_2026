@@ -20,3 +20,7 @@ func _process(_delta: float) -> void:
 
 func _on_play_button_pressed() -> void:
 	get_tree().change_scene_to_file("res://Scenes/Play_Game.tscn")
+
+
+func _on_menu_button_pressed() -> void:
+	get_tree().change_scene_to_file("res://Scenes/Main_Menu.tscn")
