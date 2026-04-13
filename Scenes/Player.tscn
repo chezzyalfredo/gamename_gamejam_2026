@@ -316,7 +316,7 @@ _data = {
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_nn08x"]
-radius = 29.614185
+radius = 27.294687
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 7
