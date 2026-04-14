@@ -3,13 +3,14 @@ class_name Escape_Sequencer extends Control
 enum Direction {UP, DOWN, LEFT, RIGHT}
 
 var escape_sequence: Array = []
+var visible_sequence: Array = []
 var current_step:int = 0
 var sequence_size:int = 4 #inputs
 var sequence_time:float = 3.0 #seconds
 var increment_size: int = 1
-var increment_time: float = 0.75
+var increment_time: float = 0.5
 @onready var timer: Timer = Timer.new() # TODO
-@onready var grid: GridContainer = $GridContainer
+@onready var grid: GridContainer = $Control/GridContainer
 const ARROW_SCENE = preload("res://UI/Escape_Arrow.tscn")
 var visual_step: int = 0
 var resetting_sequence:bool = false
@@ -17,6 +18,8 @@ var resetting_sequence:bool = false
 @onready var game_score: Score = $"../Score"
 var score_per_arrow :float = 10.0 
 @onready var catch_pct := $catch_pct
+@onready var ui := get_parent().get_parent()
+@onready var seq_size_text := $Sequence_Size
 
 signal escaped()
 
@@ -29,7 +32,7 @@ func _process(_delta: float) -> void:
 			stop_timer()
 		current_step = 0
 		escaped.emit()
-		game_score.update_score(score_per_arrow * escape_sequence.size())
+		ui.adjust_score(score_per_arrow * escape_sequence.size())
 		sequence_size += increment_size
 		sequence_time += increment_time
 		print("escaped!")
@@ -70,6 +73,7 @@ func _on_timer_timeout() -> void:
 		game_score.game_over = true
 		var final_score := game_score.get_curr_score()
 		get_tree().root.set_meta(&"pending_game_over_score", final_score)
+		get_tree().root.set_meta(&"pending_game_over_time", game_score.time_elapsed)
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://UI/Game_Over.tscn")
 
@@ -120,7 +124,12 @@ func next_in_sequence() -> void:
 	arrow.set_direction_correct()
 	current_step += 1
 	visual_step += 1
+	update_sequence_size()
 	if visual_step < grid.get_children().size():
+		if visual_step >= 4:
+			var grid_children := grid.get_children()
+			for i in range(4):
+				grid_children.get(i).queue_free()
 		arrow = grid.get_children().get(visual_step)
 		arrow.set_direction_current()
 
@@ -135,6 +144,10 @@ func reset_sequence_sprites() -> void:
 		arrow.set_direction(dir)
 	var a : Escape_Arrow = grid.get_children().get(visual_step)
 	a.set_direction_current()
+	update_sequence_size()
+
+func update_sequence_size() -> void:
+	seq_size_text.text = "Ropes to pull off: %s" % str(sequence_size - current_step)
 
 func clear_grid() -> void:
 	for n in grid.get_children():

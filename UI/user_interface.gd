@@ -49,6 +49,10 @@ func pause_toggle() -> void:
 	pause_screen.visible = not pause_screen.visible
 	get_tree().paused = not get_tree().paused
 	score_text.pause_toggle()
+	if escape_seq.timer and not escape_seq.timer.is_stopped():
+		escape_seq.timer.paused = not escape_seq.timer.paused
+	if not pause_screen.visible and $Stationary/Info_Page.visible:
+		$Stationary/Info_Page.visible = not $Stationary/Info_Page.visible
 
 func adjust_score(amount: float) -> void:
 	if player.enraged:
@@ -103,3 +107,7 @@ func update_enrage(enrage_counter: int) -> void:
 			return
 		_:
 			return
+
+
+func _on_info_button_pressed() -> void:
+	$Stationary/Info_Page.visible = true

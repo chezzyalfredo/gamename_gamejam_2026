@@ -7,11 +7,11 @@ var rng := RandomNumberGenerator.new()
 @onready var playmap: Play_Map = $Play_Map
 @onready var entities: Node2D = $Entities
 const spawnable_distance : float = 128
-var hunter_spawn_cd :float = 5
+var hunter_spawn_cd :float = 2.5
 var hunter_cd :bool = false
 var bush_cd : bool = false
 var start_cds : bool = false
-var start_hunter_amt : int = 3
+var start_hunter_amt : int = 10
 
 signal spawnable
 signal hunter_spawned

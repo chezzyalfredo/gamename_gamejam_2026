@@ -62,17 +62,17 @@ vframes = 3
 [node name="Escape Sequence" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 88.0
-offset_top = 208.0
+offset_top = 192.0
 offset_right = 128.0
-offset_bottom = 248.0
+offset_bottom = 232.0
 
 [node name="Arrow_Details2" type="RichTextLabel" parent="Escape Sequence"]
 layout_mode = 0
 offset_left = 192.0
-offset_top = 72.0
+offset_top = 80.0
 offset_right = 448.0
-offset_bottom = 152.0
-text = "When Caught:
+offset_bottom = 160.0
+text = "When CAUGHT:
 Enter the highlighted Arrow Key sequence to escape
 Each Arrow: +10 pts"
 
@@ -90,6 +90,58 @@ scale = Vector2(2, 2)
 texture = ExtResource("3_1edw4")
 vframes = 3
 frame = 2
+
+[node name="Hunter2" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -376.0
+offset_top = 232.0
+offset_right = -336.0
+offset_bottom = 272.0
+
+[node name="Hunter Details" type="RichTextLabel" parent="Hunter2"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 144.0
+offset_right = 976.0
+offset_bottom = 240.0
+text = "This is a hunter, touching them will put you in a net that you need to escape!
+They also shoot tranquilizers and nets.
+When Mauled: +25 pts"
+
+[node name="Hunter" type="Sprite2D" parent="Hunter2"]
+position = Vector2(576, 176)
+scale = Vector2(2, 2)
+texture = ExtResource("5_ymwpv")
+
+[node name="Projectiles" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -376.0
+offset_top = 216.0
+offset_right = -336.0
+offset_bottom = 256.0
+
+[node name="Projectiles_Details" type="RichTextLabel" parent="Projectiles"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 256.0
+offset_right = 960.0
+offset_bottom = 400.0
+text = "Tranquilizer: -5 pts
+While CAUGHT -10 pts
+Hits for ENRAGE have no penalty
+
+Net: You need to escape!
+While CAUGHT: -50 pts"
+
+[node name="Tranquilizer" type="Sprite2D" parent="Projectiles"]
+position = Vector2(576, 280)
+scale = Vector2(2, 2)
+texture = ExtResource("6_1o627")
+
+[node name="Net" type="Sprite2D" parent="Projectiles"]
+position = Vector2(576, 344)
+scale = Vector2(2, 2)
+texture = ExtResource("7_2ey7y")
 
 [node name="Bearitrice" type="Control" parent="."]
 anchors_preset = 0
@@ -116,57 +168,6 @@ texture = ExtResource("4_vnflv")
 hframes = 8
 vframes = 6
 frame = 16
-
-[node name="Hunter2" type="Control" parent="."]
-anchors_preset = 0
-offset_left = -376.0
-offset_top = 256.0
-offset_right = -336.0
-offset_bottom = 296.0
-
-[node name="Hunter Details" type="RichTextLabel" parent="Hunter2"]
-layout_mode = 0
-offset_left = 656.0
-offset_top = 144.0
-offset_right = 976.0
-offset_bottom = 240.0
-text = "This is a hunter, touching them will put you in a net that you need to escape!
-They also shoot tranquilizers and nets.
-When Mauled: +25 pts"
-
-[node name="Hunter" type="Sprite2D" parent="Hunter2"]
-position = Vector2(576, 176)
-scale = Vector2(2, 2)
-texture = ExtResource("5_ymwpv")
-
-[node name="Projectiles" type="Control" parent="."]
-anchors_preset = 0
-offset_left = -376.0
-offset_top = 240.0
-offset_right = -336.0
-offset_bottom = 280.0
-
-[node name="Projectiles_Details" type="RichTextLabel" parent="Projectiles"]
-layout_mode = 0
-offset_left = 656.0
-offset_top = 272.0
-offset_right = 960.0
-offset_bottom = 368.0
-text = "Tranquilizer: touched -5 pts
-touched while caught -20 pts
-
-Net: touched, you need to escape!
-touched while caught: -50 pts"
-
-[node name="Tranquilizer" type="Sprite2D" parent="Projectiles"]
-position = Vector2(544, 320)
-scale = Vector2(2, 2)
-texture = ExtResource("6_1o627")
-
-[node name="Net" type="Sprite2D" parent="Projectiles"]
-position = Vector2(608, 320)
-scale = Vector2(2, 2)
-texture = ExtResource("7_2ey7y")
 
 [node name="Attack" type="Control" parent="."]
 anchors_preset = 0
@@ -210,8 +211,7 @@ offset_bottom = 448.0
 text = "Bearrel Roll:
 Press [Z] to roll!
 Rolling will allow you to dodge anything.
-Cooldown: 5 seconds
-If used while on Cooldown: -10 pts"
+Cooldown: 5 seconds"
 
 [node name="Bearrel_Roll_Sprite" type="Sprite2D" parent="Bearrel_Roll"]
 position = Vector2(112, 320)
@@ -224,25 +224,25 @@ frame = 40
 [node name="Enraged" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 560.0
-offset_top = -24.0
+offset_top = -32.0
 offset_right = 600.0
-offset_bottom = 16.0
+offset_bottom = 8.0
 
 [node name="Enraged_Details" type="RichTextLabel" parent="Enraged"]
 layout_mode = 0
 offset_left = 192.0
 offset_top = 408.0
 offset_right = 592.0
-offset_bottom = 568.0
-text = "Enraged!
-Press [Space] to Enrage when available
-After hit by 5 tranquilizers you can use Enrage
+offset_bottom = 544.0
+text = "ENRAGED!
+Press [Space] to use ENRAGE
+5 Tranquilizers charge your ENRAGE
 
-When enraged, ALL point values are tripled [x3] (includes penalties), you move faster, but your vision is narrowed."
+When ENRAGED, ALL point values are tripled [x3] (includes penalties), you move faster, but your vision is narrowed."
 
 [node name="Enraged_Sprite" type="Sprite2D" parent="Enraged"]
 modulate = Color(1, 0.17218414, 0.14494923, 1)
-position = Vector2(112, 448)
+position = Vector2(112, 464)
 scale = Vector2(2, 2)
 texture = ExtResource("4_vnflv")
 flip_h = true

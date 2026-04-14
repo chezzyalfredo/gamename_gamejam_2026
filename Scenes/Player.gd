@@ -14,6 +14,8 @@ var caught: bool = false
 var animation_locked: bool = false
 var enrage_limit_max :int = 5
 var enrage_limit :int = 5
+## True during enemy-touch stagger before `caught` — blocks movement while arrows are still held.
+var pending_caught_sequence: bool = false
 
 func _ready() -> void:
 	interaction_area.area_entered.connect(_on_interaction_area_area_entered)
@@ -44,18 +46,20 @@ func _enemy_from_area(area: Area2D) -> Enemy:
 		n = n.get_parent()
 	return null
 
-var enemy_touched := -20.0
+#var enemy_touched := -20.0
 func _on_player_enemy_overlap(enemy: Enemy) -> void:
 	print(enemy, " entered")
 	enemy.placeholder_player_interaction(self)
-	ui.adjust_score(enemy_touched)
+	pending_caught_sequence = true
+	#velocity = Vector2.ZERO
+	state_machine.transition_to(PlayerState.IDLE)
 	caught_toggle()
 
 func _on_player_enemy_attacked(enemy: Enemy) -> void:
 	enemy.enemy_attacked(self)
 
 func _input(event: InputEvent) -> void:
-	if caught:
+	if caught or pending_caught_sequence:
 		return
 	if not event is InputEventKey:
 		return
@@ -174,9 +178,10 @@ var enrage_timer := 15.0
 func enrage_toggle() -> void:
 	if enraged or enrage_limit != 0:
 		return
-	$StateMachine/Move_State.toggle_enrage(enraged)
 	if !enraged:
+		$StateMachine/Move_State.toggle_enrage(enraged)
 		enraged = true
+		ap.play_growl()
 		ui.camera_enrage_on()
 		ui.enraged_text()
 		animation_player.play("enrage_idle")
@@ -194,7 +199,10 @@ func disable_enrage() -> void:
 func caught_toggle() -> void:
 	if caught:
 		return
+	pending_caught_sequence = false
 	caught = true
+	velocity = Vector2.ZERO
+	state_machine.transition_to(PlayerState.IDLE)
 	ui.toggle_sequencer_visibility()
 	$AnimationPlayer.play("caught")
 	await ui.escape_seq.escaped
@@ -208,10 +216,11 @@ func caught_toggle() -> void:
 
 var tranq_penalty := -5.0
 func hit_by_tranquilizer(tranq: Tranquilizer) -> void:
-	if caught:
-		ui.adjust_score(tranq_penalty * 4)
-	else:
-		ui.adjust_score(tranq_penalty)
+	if enrage_limit <= 0:
+		if caught:
+			ui.adjust_score(tranq_penalty * 2)
+		else:
+			ui.adjust_score(tranq_penalty)
 	if !enraged:
 		enrage_limit = max(0, enrage_limit -1)
 		ui.update_enrage(enrage_limit)
@@ -224,12 +233,9 @@ var roll_duration : float = 0.3
 var rolling_cd_time : float = 5.0
 var rolling_cd_penalty: float = -10.0
 func bearrel_roll() -> void:
-	if rolling:
+	if rolling or rolling_cd:
 		return
 	animation_locked = true
-	print(rolling_cd)
-	if rolling_cd:
-		ui.adjust_score(rolling_cd_penalty)
 	rolling = true
 	$InteractionArea.monitoring = false
 	$CollisionShape2D.disabled = true

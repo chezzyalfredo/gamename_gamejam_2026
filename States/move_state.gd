@@ -13,6 +13,9 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	pass
 
 func physics_update(delta: float) -> void:
+	if player.caught or player.pending_caught_sequence:
+		player.velocity = Vector2.ZERO
+		return
 	var input_dir := Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if !Input.is_anything_pressed():
 		finished.emit(PlayerState.IDLE, {})
@@ -26,8 +29,8 @@ func physics_update(delta: float) -> void:
 	player.velocity.x = move_toward(player.velocity.x, desired.x, MOVE_ACCEL * delta)
 	player.velocity.y = move_toward(player.velocity.y, desired.y, MOVE_ACCEL * delta)
 
-func toggle_enrage(enraged: bool) -> void:
-	if !enraged:
+func toggle_enrage(e: bool) -> void:
+	if !e:
 		enrage()
 		return
 	end_enrage()
@@ -44,6 +47,8 @@ func end_enrage() -> void:
 
 func exit() -> void:
 	print(player.global_position)
+	player.velocity = Vector2.ZERO
+	
 
 func update_animation(input_dir: Vector2) -> void:
 	if player.animation_locked:

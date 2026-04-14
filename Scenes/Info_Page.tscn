@@ -1,0 +1,262 @@
+[gd_scene load_steps=9 format=3 uid="uid://c8t3otu56bgdv"]
+
+[ext_resource type="Script" uid="uid://bsd2xtvfl3obl" path="res://Scenes/info_page.gd" id="1_4rqt2"]
+[ext_resource type="PackedScene" uid="uid://gghtwswhgsps" path="res://UI/Button.tscn" id="2_umqrf"]
+[ext_resource type="Texture2D" uid="uid://dj8u0u53n73c6" path="res://Sprites/Arrows.png" id="3_ubx10"]
+[ext_resource type="Texture2D" uid="uid://c4xy0co4u70b3" path="res://Sprites/bearitrice.png" id="4_7gtso"]
+[ext_resource type="Texture2D" uid="uid://ds1f6gbvqin6a" path="res://Sprites/hunter.png" id="5_8r76l"]
+[ext_resource type="Texture2D" uid="uid://cckf8vphoebek" path="res://Sprites/Projectile.png" id="6_hup6p"]
+[ext_resource type="Texture2D" uid="uid://cigs6lygbcvug" path="res://Sprites/Bola.png" id="7_0mh78"]
+[ext_resource type="Texture2D" uid="uid://nupgtu7uclm5" path="res://Sprites/Title.png" id="8_4hbsc"]
+
+[node name="Info_Page" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4rqt2")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Close_Info" parent="." instance=ExtResource("2_umqrf")]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.82500005
+anchor_right = 0.89400005
+anchor_bottom = 0.95000005
+offset_right = -0.32006836
+button_text = "Close Info"
+font_size_override = 32
+
+[node name="Movement" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 88.0
+offset_top = 176.0
+offset_right = 128.0
+offset_bottom = 216.0
+
+[node name="Arrow_Details" type="RichTextLabel" parent="Movement"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 32.0
+offset_right = 448.0
+offset_bottom = 88.0
+text = "Movement:
+Arrow Keys"
+
+[node name="Arrows" type="Sprite2D" parent="Movement"]
+position = Vector2(112, 48)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ubx10")
+vframes = 3
+
+[node name="Escape Sequence" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 88.0
+offset_top = 192.0
+offset_right = 128.0
+offset_bottom = 232.0
+
+[node name="Arrow_Details2" type="RichTextLabel" parent="Escape Sequence"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 80.0
+offset_right = 448.0
+offset_bottom = 160.0
+text = "When CAUGHT:
+Enter the highlighted Arrow Key sequence to escape
+Each Arrow: +10 pts"
+
+[node name="Caught_Bear" type="Sprite2D" parent="Escape Sequence"]
+position = Vector2(112, 112)
+scale = Vector2(2, 2)
+texture = ExtResource("4_7gtso")
+hframes = 8
+vframes = 6
+frame = 9
+
+[node name="Arrows2" type="Sprite2D" parent="Escape Sequence"]
+position = Vector2(112, 104)
+scale = Vector2(2, 2)
+texture = ExtResource("3_ubx10")
+vframes = 3
+frame = 2
+
+[node name="Hunter2" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -376.0
+offset_top = 232.0
+offset_right = -336.0
+offset_bottom = 272.0
+
+[node name="Hunter Details" type="RichTextLabel" parent="Hunter2"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 144.0
+offset_right = 976.0
+offset_bottom = 240.0
+text = "This is a hunter, touching them will put you in a net that you need to escape!
+They also shoot tranquilizers and nets.
+When Mauled: +25 pts"
+
+[node name="Hunter" type="Sprite2D" parent="Hunter2"]
+position = Vector2(576, 176)
+scale = Vector2(2, 2)
+texture = ExtResource("5_8r76l")
+
+[node name="Projectiles" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -376.0
+offset_top = 216.0
+offset_right = -336.0
+offset_bottom = 256.0
+
+[node name="Projectiles_Details" type="RichTextLabel" parent="Projectiles"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 256.0
+offset_right = 960.0
+offset_bottom = 400.0
+text = "Tranquilizer: -5 pts
+While CAUGHT -10 pts
+Hits for ENRAGE have no penalty
+
+Net: You need to escape!
+While CAUGHT: -50 pts"
+
+[node name="Tranquilizer" type="Sprite2D" parent="Projectiles"]
+position = Vector2(576, 280)
+scale = Vector2(2, 2)
+texture = ExtResource("6_hup6p")
+
+[node name="Net" type="Sprite2D" parent="Projectiles"]
+position = Vector2(576, 344)
+scale = Vector2(2, 2)
+texture = ExtResource("7_0mh78")
+
+[node name="Bearitrice" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 96.0
+offset_top = 16.0
+offset_right = 136.0
+offset_bottom = 56.0
+
+[node name="Player_Details" type="RichTextLabel" parent="Bearitrice"]
+layout_mode = 0
+offset_left = 656.0
+offset_top = 32.0
+offset_right = 960.0
+offset_bottom = 104.0
+text = "This is Bearitrice. 
+She's on the run from hunters.
+Help keep her from getting caught!
++1 point/second"
+
+[node name="Player" type="Sprite2D" parent="Bearitrice"]
+position = Vector2(576, 64)
+scale = Vector2(2, 2)
+texture = ExtResource("4_7gtso")
+hframes = 8
+vframes = 6
+frame = 16
+
+[node name="Attack" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 560.0
+offset_top = -16.0
+offset_right = 600.0
+offset_bottom = 24.0
+
+[node name="Attack_Details" type="RichTextLabel" parent="Attack"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 168.0
+offset_right = 448.0
+offset_bottom = 264.0
+text = "Attack:
+Press [X] to attack!
+Use the attacks to maul hunters for points!
++25 pts per hunter mauled"
+
+[node name="Attack_Sprite" type="Sprite2D" parent="Attack"]
+position = Vector2(112, 208)
+scale = Vector2(2, 2)
+texture = ExtResource("4_7gtso")
+hframes = 8
+vframes = 6
+frame = 35
+
+[node name="Bearrel_Roll" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 560.0
+offset_top = -24.0
+offset_right = 600.0
+offset_bottom = 16.0
+
+[node name="Bearrel_Roll_Details" type="RichTextLabel" parent="Bearrel_Roll"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 288.0
+offset_right = 512.0
+offset_bottom = 448.0
+text = "Bearrel Roll:
+Press [Z] to roll!
+Rolling will allow you to dodge anything.
+Cooldown: 5 seconds"
+
+[node name="Bearrel_Roll_Sprite" type="Sprite2D" parent="Bearrel_Roll"]
+position = Vector2(112, 320)
+scale = Vector2(2, 2)
+texture = ExtResource("4_7gtso")
+hframes = 8
+vframes = 6
+frame = 40
+
+[node name="Enraged" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 560.0
+offset_top = -32.0
+offset_right = 600.0
+offset_bottom = 8.0
+
+[node name="Enraged_Details" type="RichTextLabel" parent="Enraged"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 408.0
+offset_right = 592.0
+offset_bottom = 568.0
+text = "ENRAGED!
+Press [Space] to use ENRAGE
+5 Tranquilizers charge your ENRAGE
+
+When ENRAGED, ALL point values are tripled [x3] (includes penalties), you move faster, but your vision is narrowed."
+
+[node name="Enraged_Sprite" type="Sprite2D" parent="Enraged"]
+modulate = Color(1, 0.17218414, 0.14494923, 1)
+position = Vector2(112, 464)
+scale = Vector2(2, 2)
+texture = ExtResource("4_7gtso")
+flip_h = true
+hframes = 8
+vframes = 6
+frame = 24
+
+[node name="Title" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 120.0
+scale = Vector2(2, 2)
+texture = ExtResource("8_4hbsc")
+
+[connection signal="pressed" from="Close_Info" to="." method="_on_close_info_pressed"]

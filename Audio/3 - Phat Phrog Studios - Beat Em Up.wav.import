@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c418r8fn2c6ue"
+path="res://.godot/imported/3 - Phat Phrog Studios - Beat Em Up.wav-aac4b216c283b433c9202dd5a62f60c8.sample"
+
+[deps]
+
+source_file="res://Audio/3 - Phat Phrog Studios - Beat Em Up.wav"
+dest_files=["res://.godot/imported/3 - Phat Phrog Studios - Beat Em Up.wav-aac4b216c283b433c9202dd5a62f60c8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
